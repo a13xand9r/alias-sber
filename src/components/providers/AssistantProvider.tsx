@@ -11,7 +11,6 @@ export const AssistantProvider = ({ children }: { children: ReactNode }) => {
     const stateRef = useRef<StateType>(state)
     stateRef.current = state
     useEffect(() => {
-        console.log('useEffect')
         assistantRef.current = initAssistant(dispatch, () => stateRef.current)
     }, [])
     return (

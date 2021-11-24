@@ -6,11 +6,11 @@ import { StoreProvider } from './StoreProvider'
 export const Providers = ({ children }: { children: ReactNode }) => {
     return (
         <StoreProvider>
-            <AssistantProvider>
+            {/* <AssistantProvider> */}
                 <DeviceThemeProvider>
                     {children}
                 </DeviceThemeProvider>
-            </AssistantProvider>
+            {/* </AssistantProvider> */}
         </StoreProvider>
     )
 }

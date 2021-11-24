@@ -1,12 +1,13 @@
 import { IconChevronDown, IconChevronUp } from '@sberdevices/plasma-icons'
-import { PageComponent, useAssistantOnSmartAppData, useMount, useRemoteHandlers } from '@sberdevices/plasma-temple'
+import { PageComponent, useAssistantOnSmartAppData, useMount } from '@sberdevices/plasma-temple'
 import React from 'react'
 import styled from 'styled-components'
 import { getWords } from '../api/words'
+import { usePlayRound } from '../hooks/usePlayRound'
 import { useStore } from '../hooks/useStore'
 import { actions } from '../store/store'
 import { ActionType, AssistantDataAction, PageParamsType, PageStateType } from '../types/types'
-import { getRandomFromArray } from '../utils'
+import { getRandomFromArray } from '../utils/utils'
 
 const ArrowButton = styled.div`
     border: none;
@@ -16,16 +17,9 @@ const Word = styled.div`
     
 `
 
-export const PlayPage: PageComponent<PageStateType, 'play', PageParamsType> = ({}) => {
+export const PlayPage: PageComponent<PageStateType, 'play', PageParamsType> = ({ pushScreen }) => {
 
-    const [state, dispatch] = useStore()
-
-    useMount(() => {
-        console.log('useMount')
-        getWords().then(words => {
-            dispatch(actions.setWords(words))
-        })
-    })
+    const [_, dispatch] = useStore()
 
     useAssistantOnSmartAppData<AssistantDataAction>(action => {
         if (!action) {
@@ -34,33 +28,38 @@ export const PlayPage: PageComponent<PageStateType, 'play', PageParamsType> = ({
 
         switch (action.type) {
             case ActionType.WORDS:
-                dispatch(actions.setWords(action.payload))
+                // dispatch(actions.setWords(action.payload))
                 break;
             default:
                 break;
         }
     })
 
-    const { current: prevIndex } = React.useRef<number>(0)
+    const downCallback = () => {
+        // setCurrentWord(getRandomFromArray(words))
+    }
 
-    useRemoteHandlers({
-        axis: 'y',
-        initialIndex: 0,
-        max: 10000,
-        min: -10000,
+    const upCallback = () => {
+        // setCurrentWord(getRandomFromArray(words))
+    }
+    const finishCallback = () => {
+        dispatch(actions.setNextPlayingTeam())
+        pushScreen('roundResult')
+    }
+
+    const { timer, currentWord } = usePlayRound({
+        downCallback,
+        upCallback,
+        finishCallback
     })
-
-    React.useEffect(() => {
-
-    }, [])
-
-    const word = getRandomFromArray(state.words)
 
     return (
         <div>
             PLAY COMPONENT
-            <ArrowButton><IconChevronUp /></ArrowButton>
-            <Word>{word}</Word>
+            <br/>
+            {timer}
+            <ArrowButton><IconChevronUp color='yellow' /></ArrowButton>
+            <Word>{currentWord}</Word>
             <ArrowButton><IconChevronDown /></ArrowButton>
         </div>
     )

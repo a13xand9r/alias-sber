@@ -20,6 +20,10 @@ export interface Commands {
 
 }
 
+export interface Result {
+
+}
+
 export interface Questions {
     id: string;
 }
@@ -29,7 +33,10 @@ export interface PageStateType {
     start: Start,
     play: Play,
     settings: Settings,
-    commands: Commands,
+    teams: null,
+    roundResult: null
+    rules: null
+    teamScore: null
     questions: Questions
 }
 
@@ -68,8 +75,13 @@ export type ActionsType = InferActionType<typeof actions>
 
 export type CharacterType = 'sber' | 'joy' | 'eva'
 
-export type Command = {
+export type Team = {
     name: string
     id: string
     score: number
+}
+
+export type RoundWord = {
+    word: string
+    isAnswered: boolean
 }
