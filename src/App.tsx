@@ -1,8 +1,10 @@
 import { PlasmaApp, Page, OnStartFn } from '@sberdevices/plasma-temple';
+import { PlayPage } from './pages/PlayPage';
 import { AppHeaderProps, AssistantProps, PageStateType } from './types/types';
 
 const onStart: OnStartFn<PageStateType, {}> = ({ pushScreen }) => {
-    pushScreen('main');
+    console.log('onStart')
+    pushScreen('play');
 };
 
 const assistantParams: AssistantProps = {
@@ -16,10 +18,12 @@ const header: AppHeaderProps = {
 };
 
 
-export const App = () => (
+const App = () => {
+    console.log('App')
+    return(
     <PlasmaApp onStart={onStart} assistantParams={assistantParams} header={header}>
-        <Page name="home" component={() => <div></div>} />
+        <Page name='play' component={PlayPage} />
     </PlasmaApp>
-);
+)}
 
 export default App
