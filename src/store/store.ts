@@ -11,7 +11,8 @@ export const initialState = {
     isDecreasing: false,
     timerLimit: 60,
     wordsCountToWin: 30,
-    roundWords: [] as RoundWord[]
+    roundWords: [] as RoundWord[],
+    roundNumber: 1
 }
 
 export const reducer = (state: StateType, action: ActionsType): StateType => {
@@ -65,6 +66,10 @@ export const reducer = (state: StateType, action: ActionsType): StateType => {
             return { ...state, wordsCountToWin: action.payload }
         case 'SET_DECREASING_POINTS':
             return { ...state, isDecreasing: action.payload }
+        case 'INCREASE_ROUND_NUMBER':
+            return { ...state, roundNumber: state.roundNumber + 1 }
+        case 'SET_ROUND_NUMBER':
+            return { ...state, roundNumber: action.payload }
         default: return state
     }
 }
@@ -84,4 +89,6 @@ export const actions = {
     setTimerLimit: (limit: number) => ({ type: 'SET_TIMER_LIMIT', payload: limit } as const),
     setWordsCountToWin: (count: number) => ({ type: 'SET_WORDS_COUNT_TO_WIN', payload: count } as const),
     setDecreasingPoints: (payload: boolean) => ({ type: 'SET_DECREASING_POINTS', payload } as const),
+    increaseRoundNumber: () => ({ type: 'INCREASE_ROUND_NUMBER' } as const),
+    setRoundNumber: (round: number) => ({ type: 'SET_ROUND_NUMBER', payload: round } as const),
 }

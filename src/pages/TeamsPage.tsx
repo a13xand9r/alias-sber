@@ -1,14 +1,67 @@
+import { IconClose, IconPlus } from '@sberdevices/plasma-icons'
 import { PageComponent, useMount } from '@sberdevices/plasma-temple'
 import { Button } from '@sberdevices/plasma-ui'
 import { useEffect } from 'react'
+import styled from 'styled-components'
 import { useStore } from '../hooks/useStore'
 import { actions } from '../store/store'
 import { PageParamsType, PageStateType } from '../types/types'
 import { teamNames } from '../utils/teamNames'
 import { getRandomFromArray, getRandomFromArrayWithOldValues } from '../utils/utils'
 
-export const TeamsPage: PageComponent<PageStateType, 'teams', PageParamsType> = ({pushScreen}) => {
-    const [{teams}, dispatch] = useStore()
+export const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2rem auto;
+    text-align: center;
+    width: 40rem;
+    @media (max-width: 700px){
+        width: 90vw;
+    }
+`
+
+export const ButtonsBottomContainer = styled.div`
+    position: absolute;
+    bottom: 10rem;
+    left: 0;
+    right: 0;
+    margin: auto;
+    text-align: center;
+`
+
+export const TeamsContainer = styled.div`
+    width: 100%;
+`
+
+export const TeamItem = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 3.5rem;
+`
+const AddButton = styled(Button)`
+    display: flex;
+    justify-content: space-around;
+    background: none;
+    align-items: center;
+    margin: 1rem auto;
+    width: 11rem;
+`
+export const StyledButton = styled(Button)`
+    display: block;
+    margin: 1rem auto;
+    width: 15rem;
+`
+
+const DeleteButton = styled(Button)`
+    display: block;
+    background: none;
+    border: none;
+`
+
+export const TeamsPage: PageComponent<PageStateType, 'teams', PageParamsType> = ({ pushScreen }) => {
+    const [{ teams }, dispatch] = useStore()
 
     useMount(() => {
         const team1 = getRandomFromArray(teamNames)
@@ -31,13 +84,17 @@ export const TeamsPage: PageComponent<PageStateType, 'teams', PageParamsType> = 
         if (teams.length) dispatch(actions.setPlayingTeam(teams[0].id))
     }, [teams])
     return (
-        <div>
-            {teams.map((team, _, arr) => (
-                <div key={team.id}>{team.name} {arr.length > 2 && <button onClick={() => deleteTeamHandler(team.id)}>X</button>}</div>
-            ))}
-            <Button onClick={addTeamHandler}>Добавить</Button>
-            <Button onClick={settingsHandler}>Настройки</Button>
-            <Button onClick={continueHandler}>Далее</Button>
-        </div>
+        <Container>
+            <TeamsContainer>
+                {teams.map((team, _, arr) => (
+                    <TeamItem key={team.id}>{team.name} {arr.length > 2 && <DeleteButton onClick={() => deleteTeamHandler(team.id)}><IconClose /></DeleteButton>}</TeamItem>
+                ))}
+            </TeamsContainer>
+            <AddButton onClick={addTeamHandler}><IconPlus /> Добавить</AddButton>
+            <ButtonsBottomContainer>
+                <StyledButton onClick={settingsHandler}>Настройки</StyledButton>
+                <StyledButton onClick={continueHandler} view='primary'>Далее</StyledButton>
+            </ButtonsBottomContainer>
+        </Container>
     )
 }

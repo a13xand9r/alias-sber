@@ -14,3 +14,7 @@ export function getRandomFromArrayWithOldValues<T>(arr: T[], oldValues: T[]): T 
     }
     return arr[Math.floor(arr.length * Math.random())]
 }
+
+export const getTimerPercentage = (timer: number, limit: number) => {
+    return (timer / limit) * 100
+}

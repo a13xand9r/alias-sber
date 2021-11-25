@@ -1,6 +1,6 @@
 import { actions } from '../store/store';
-import { RemoteKey, useMount, useRemoteListener } from '@sberdevices/plasma-temple';
-import { Dispatch, useState, useEffect, useRef } from 'react';
+import { RemoteKey, useMount, useRemoteListener, useTouchHandler } from '@sberdevices/plasma-temple';
+import { Dispatch, useState, useEffect, useRef, RefObject } from 'react';
 import { ActionsType } from '../types/types';
 import { useStore } from './useStore';
 import { getRandomFromArray } from '../utils/utils';
@@ -44,27 +44,56 @@ export const usePlayRound = (
         setCurrentWord(getRandomFromArray(words))
         if (timer === 0) finishCallback()
     }
+    const rightAnswer = () => {
+        dispatch(actions.increaseCommandStore(playingTeamId as string))
+        dispatch(actions.appendRoundWords(currentWord, true))
+        upCallback()
+        answer()
+    }
+    const wrongAnswer = () => {
+        isDecreasing && dispatch(actions.decreaseCommandStore(playingTeamId as string))
+        dispatch(actions.appendRoundWords(currentWord, false))
+        downCallback()
+        answer()
+    }
 
     const remoteListenerHandler = (key: RemoteKey) => {
         switch (key) {
             case 'DOWN':
-                isDecreasing && dispatch(actions.decreaseCommandStore(playingTeamId as string))
-                dispatch(actions.appendRoundWords(currentWord, false))
-                downCallback()
-                answer()
+                wrongAnswer()
                 break;
             case 'UP':
-                dispatch(actions.increaseCommandStore(playingTeamId as string))
-                dispatch(actions.appendRoundWords(currentWord, true))
-                upCallback()
-                answer()
+                rightAnswer()
                 break;
             default:
         }
     }
     useRemoteListener(remoteListenerHandler, {})
 
-    return { timer, currentWord }
+    const elementRef = useRef<HTMLDivElement>(null)
+    const touchListenerHandler = (dir: number) => {
+        switch (dir) {
+            case -1:
+                wrongAnswer()
+                break;
+            case 1:
+                rightAnswer()
+                break;
+            default:
+        }
+    }
+    useTouchHandler(elementRef, touchListenerHandler, {
+        axis: 'y',
+        callDistance: 30
+    })
+
+    return {
+        timer,
+        currentWord,
+        elementRef,
+        onDownClick: wrongAnswer,
+        onUpClick: rightAnswer
+    }
 }
 
 type PropsType = {

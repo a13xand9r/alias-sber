@@ -4,13 +4,14 @@ import { useStore } from '../hooks/useStore'
 import { PageParamsType, PageStateType } from '../types/types'
 
 export const RoundResultPage: PageComponent<PageStateType, 'roundResult', PageParamsType> = ({pushScreen}) => {
-    const [state] = useStore()
+    const [{roundWords}] = useStore()
+
     const continueHandler = () => {
         pushScreen('teamScore')
     }
     return (
         <div>
-            {state.roundWords.map(item => (
+            {roundWords.map(item => (
                 <div>{item.word} {item.isAnswered}</div>
             ))}
             <Button onClick={continueHandler}>Продолжить</Button>
