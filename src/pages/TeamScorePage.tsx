@@ -35,7 +35,9 @@ const UpContainer = styled.div`
 export const TeamItem = styled.div`
     display: flex;
     align-items: center;
+    text-align: start;
     justify-content: space-between;
+    margin-bottom: 0.3rem;
     min-height: 1.8rem;
 `
 
@@ -77,7 +79,6 @@ export const TeamScorePage = () => {
                     {state.teams.map((team, index) => (
                         <TeamItem
                             key={index}
-                            style={{ maxHeight: '1.5rem' }}
                         >
                             <div><Headline3>{team.name}</Headline3></div>
                             <div><Headline3>{team.score}</Headline3></div>
