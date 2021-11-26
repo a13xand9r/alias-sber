@@ -24,7 +24,7 @@ export const AppHeader: React.FC<Props> = ({title, back, onBackCallback, minimiz
 type Props = {
     title: string
     back: boolean
-    onBackCallback: () => void
+    onBackCallback?: () => void
     minimize?: boolean
     minimizeCallback?: () => void
 }

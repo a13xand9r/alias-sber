@@ -16,7 +16,6 @@ const App = () => {
             <Route path="/play" element={<PlayPage />} />
             <Route path="/roundResult" element={<RoundResultPage />} />
             <Route path="/teamScore" element={<TeamScorePage />} />
-            <Route path="/teamScore" element={<TeamScorePage />} />
             <Route path="/teams" element={<TeamsPage />} />
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="/" element={<StartPage />} />

@@ -33,7 +33,7 @@ const UpContainer = styled(Card)`
     /* height: 4rem; */
     width: 100vw;
     /* padding-top: 20px; */
-    padding-bottom: ${detectDevice() === 'mobile' ? '20' : '10'}px;
+    padding-bottom: 20px;
     border-radius: 0% 0% 60% 60%;
     @media (max-width: 700px){
         border-radius: 0% 0% 30% 30%;
