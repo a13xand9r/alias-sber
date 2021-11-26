@@ -1,6 +1,6 @@
 import { IconChevronDown, IconChevronUp } from '@sberdevices/plasma-icons'
 import { secondary } from '@sberdevices/plasma-tokens'
-import { Card, Headline1, Headline2 } from '@sberdevices/plasma-ui'
+import { Card, detectDevice, Headline1, Headline2, Headline3 } from '@sberdevices/plasma-ui'
 import React from 'react'
 import styled from 'styled-components'
 import { usePlayRound } from '../hooks/usePlayRound'
@@ -24,13 +24,16 @@ const UpContainer = styled.div`
     left: 0;
     display: flex;
     flex-direction: column;
+    /* flex-direction: ${detectDevice() === 'sberPortal' ? 'row' : 'column'}; */
     align-items: center;
+    justify-content: center;
     margin-bottom: 1rem;
     background-color: #ff7b00e3;
-    height: 9rem;
+    height: ${detectDevice() === 'mobile' ? '7' : '5'}rem;
+    /* height: 4rem; */
     width: 100vw;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    /* padding-top: 20px; */
+    padding-bottom: ${detectDevice() === 'mobile' ? '20' : '10'}px;
     border-radius: 0% 0% 60% 60%;
     @media (max-width: 700px){
         border-radius: 0% 0% 30% 30%;
@@ -46,8 +49,9 @@ const BottomContainer = styled.div`
     /* margin-bottom: 1rem; */
     background-color: #696969ea;
     width: 100vw;
-    height: 35vh;
-    padding-top: 20px;
+    height: ${detectDevice() === 'mobile' ? '11' : '9'}rem;
+    /* height: 35vh; */
+    padding-top: ${detectDevice() === 'mobile' ? '20' : '9'}px;
     /* padding-bottom: 10rem; */
     border-radius: 60% 60% 0% 0%;
     @media (max-width: 700px){
@@ -66,6 +70,9 @@ const CenterContainer = styled.div`
 const ArrowButton = styled.div`
     border: none;
     background: none;
+    &:focus{
+        outline: none;
+    }
 `
 const Timer = styled.div<{timerPercentage: number}>`
     display: flex;
@@ -80,17 +87,20 @@ const Timer = styled.div<{timerPercentage: number}>`
 `
 const TeamName = styled.div`
     color: ${secondary};
-    margin: 0.5rem;
+    margin-top: ${detectDevice() === 'mobile' ? '2' : '0.5'}rem;
+    /* margin: ${detectDevice() === 'sberPortal' ? '0' : '0.5'}rem; */
 `
 const Word = styled(Card)`
     display: flex;
+    padding: 1rem;
     justify-content: center;
     align-items: center;
-    height: 200px;
-    width: 200px;
+    text-align: center;
+    height: 12rem;
+    width: 12rem;
     border-radius: 50%;
     /* margin: 1rem; */
-    background-color: #8080808b;
+    /* background-color: #8080808b; */
 `
 const UpArrow = styled(IconChevronUp)`
     width: 5rem;
@@ -164,9 +174,21 @@ export const PlayPage = () => {
                 <div>отгадано</div>
             </UpContainer>
             <CenterContainer>
-                <ArrowButton onClick={onUpClick}><UpArrow color={isUpArrowColored ? 'yellow' : undefined} /></ArrowButton>
-                <Word ref={elementRef}><Headline2>{currentWord}</Headline2></Word>
-                <ArrowButton onClick={onDownClick}><DownArrow color={isDownArrowColored ? 'yellow' : undefined} /></ArrowButton>
+                <ArrowButton
+                    tabIndex={0}
+                    onClick={onUpClick}
+                    style={{marginBottom: '-1rem'}}
+                    >
+                    <UpArrow color={isUpArrowColored ? 'yellow' : secondary} />
+                </ArrowButton>
+                <Word ref={elementRef}><Headline3>{currentWord}</Headline3></Word>
+                <ArrowButton
+                    tabIndex={0}
+                    onClick={onDownClick}
+                    style={{marginTop: '-1rem'}}
+                    >
+                    <DownArrow color={isDownArrowColored ? 'yellow' : secondary} />
+                </ArrowButton>
             </CenterContainer>
             <BottomContainer>
                 <Headline1>{wrongCount}</Headline1>

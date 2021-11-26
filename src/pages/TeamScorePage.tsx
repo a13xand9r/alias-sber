@@ -1,3 +1,4 @@
+import { useMount } from '@sberdevices/plasma-temple'
 import { secondary } from '@sberdevices/plasma-tokens'
 import { Headline1, Headline3, Body1 } from '@sberdevices/plasma-ui'
 import styled from 'styled-components'
@@ -60,6 +61,10 @@ export const StyledImg = styled.img`
 export const TeamScorePage = () => {
     const [state, dispatch] = useStore()
     const pushScreen = usePushScreen()
+
+    useMount(() => {
+        window.scrollTo({top: 0, behavior: 'smooth'})
+    })
 
     const playHandler = () => {
         dispatch(actions.clearRoundWords())
