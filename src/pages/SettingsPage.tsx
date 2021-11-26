@@ -1,18 +1,11 @@
-import { PageComponent } from '@sberdevices/plasma-temple'
 import { secondary } from '@sberdevices/plasma-tokens'
-import { Body1, Button, Container, Footnote1, Headline4, Slider, Stepper, Switch } from '@sberdevices/plasma-ui'
+import { Container, Footnote1, Headline4, Stepper, Switch } from '@sberdevices/plasma-ui'
 import { ChangeEvent } from 'react'
-import styled from 'styled-components'
 import { AppHeader } from '../components/AppHeader'
 import { usePushScreen } from '../hooks/usePushScreen'
 import { useStore } from '../hooks/useStore'
 import { actions } from '../store/store'
-import { PageParamsType, PageStateType } from '../types/types'
 import { ButtonsBottomContainer, PageContainer, StyledButton } from './TeamsPage'
-
-const StyledStepper = styled(Stepper)`
-    margin: 1rem;
-`
 
 export const SettingsPage = () => {
     const [state, dispatch] = useStore()

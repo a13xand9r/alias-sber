@@ -1,6 +1,6 @@
 import { IconClose, IconPlus } from '@sberdevices/plasma-icons'
 import { useMount } from '@sberdevices/plasma-temple'
-import { Button, Container } from '@sberdevices/plasma-ui'
+import { Button, Card, Container, Headline4, Body1 } from '@sberdevices/plasma-ui'
 import { useEffect } from 'react'
 import styled from 'styled-components'
 import { AppHeader } from '../components/AppHeader'
@@ -16,7 +16,7 @@ export const PageContainer = styled.div`
     align-items: center;
     margin: 0.5rem auto;
     text-align: center;
-    width: 40rem;
+    width: 30rem;
     @media (max-width: 700px){
         width: 90vw;
     }
@@ -36,8 +36,12 @@ export const TeamsContainer = styled.div`
     width: 100%;
 `
 
-const TeamItem = styled.div`
+const TeamItem = styled(Card)`
     display: flex;
+    flex-direction: row;
+    
+    padding: 0 0.2rem 0 1rem;
+    margin-bottom: 0.3rem;
     align-items: center;
     justify-content: space-between;
     min-height: 3.5rem;
@@ -94,7 +98,13 @@ export const TeamsPage = () => {
             <PageContainer>
                 <TeamsContainer>
                     {teams.map((team, _, arr) => (
-                        <TeamItem key={team.id}>{team.name} {arr.length > 2 && <DeleteButton onClick={() => deleteTeamHandler(team.id)}><IconClose /></DeleteButton>}</TeamItem>
+                        <TeamItem key={team.id}>
+                            <Body1>{team.name} </Body1>
+                            {arr.length > 2 &&
+                            <DeleteButton onClick={() => deleteTeamHandler(team.id)}>
+                                <IconClose />
+                            </DeleteButton>}
+                        </TeamItem>
                     ))}
                 </TeamsContainer>
                 <AddButton onClick={addTeamHandler}><IconPlus /> Добавить</AddButton>
