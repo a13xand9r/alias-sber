@@ -1,7 +1,7 @@
 import { IconChevronDown, IconChevronUp } from '@sberdevices/plasma-icons'
 import { PageComponent, useAssistantOnSmartAppData, useMount } from '@sberdevices/plasma-temple'
+import { secondary } from '@sberdevices/plasma-tokens'
 import { Body1, Headline1, Headline2 } from '@sberdevices/plasma-ui'
-import { secondary } from '@sberdevices/plasma-ui/node_modules/@sberdevices/plasma-core'
 import React from 'react'
 import styled from 'styled-components'
 import { getWords } from '../api/words'
