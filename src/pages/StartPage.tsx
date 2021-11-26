@@ -1,9 +1,8 @@
 import { PageComponent } from '@sberdevices/plasma-temple'
-import { Button } from '@sberdevices/plasma-ui'
+import { Button, Card } from '@sberdevices/plasma-ui'
 import styled from 'styled-components'
 import { usePushScreen } from '../hooks/usePushScreen'
 import { useStore } from '../hooks/useStore'
-import { PageParamsType, PageStateType } from '../types/types'
 import { StyledButton } from './TeamsPage'
 
 const Container = styled.div`
@@ -15,7 +14,7 @@ const Container = styled.div`
     align-items: center;
 `
 
-const UpContainer = styled.div`
+const UpContainer = styled(Card)`
     margin-bottom: 1rem;
     height: 40vh;
     position: relative;

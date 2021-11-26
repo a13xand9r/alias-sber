@@ -1,6 +1,6 @@
 import { useMount } from '@sberdevices/plasma-temple'
 import { secondary } from '@sberdevices/plasma-tokens'
-import { Headline1, Headline3, Body1 } from '@sberdevices/plasma-ui'
+import { Headline1, Headline3, Body1, Card } from '@sberdevices/plasma-ui'
 import styled from 'styled-components'
 import { usePushScreen } from '../hooks/usePushScreen'
 import { useStore } from '../hooks/useStore'
@@ -14,7 +14,7 @@ export const HeaderContainer = styled.div`
     min-width: 20rem;
     justify-content: space-between;
 `
-const UpContainer = styled.div`
+const UpContainer = styled(Card)`
     position: relative;
     top: -2rem;
     left: 0;

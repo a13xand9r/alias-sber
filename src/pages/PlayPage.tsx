@@ -18,7 +18,7 @@ const Container = styled.div`
     align-items: center;
 `
 
-const UpContainer = styled.div`
+const UpContainer = styled(Card)`
     position: absolute;
     top: 0;
     left: 0;
@@ -40,14 +40,14 @@ const UpContainer = styled.div`
         padding-bottom: 3rem;
     }
 `
-const BottomContainer = styled.div`
+const BottomContainer = styled(Card)`
     display: flex;
     flex-direction: column;
     align-items: center;
     position: absolute;
     bottom: 0;
     /* margin-bottom: 1rem; */
-    background-color: #696969ea;
+    /* background-color: #696969ea; */
     width: 100vw;
     height: ${detectDevice() === 'mobile' ? '11' : '9'}rem;
     /* height: 35vh; */
