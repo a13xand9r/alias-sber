@@ -1,14 +1,15 @@
 import { PageComponent } from '@sberdevices/plasma-temple'
 import { Button } from '@sberdevices/plasma-ui'
 import styled from 'styled-components'
+import { usePushScreen } from '../hooks/usePushScreen'
 import { useStore } from '../hooks/useStore'
 import { PageParamsType, PageStateType } from '../types/types'
 import { StyledButton } from './TeamsPage'
 
 const Container = styled.div`
     display: flex;
-    margin-top: 30rem;
-    height: 40vh;
+    margin-top: 2rem;
+    height: 30vh;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -17,9 +18,9 @@ const Container = styled.div`
 const UpContainer = styled.div`
     margin-bottom: 1rem;
     height: 40vh;
-    position: absolute;
+    position: relative;
     left: 0;
-    top: 0;
+    top: -2rem;
     background-image: url('./img/background-city.jpeg');
     background-size: 100%;
     background-position-y: 40%;
@@ -29,7 +30,8 @@ const UpContainer = styled.div`
     border-radius: 0% 0% 60% 60%;
 `
 
-export const StartPage: PageComponent<PageStateType, 'start', PageParamsType> = ({pushScreen}) => {
+export const StartPage = () => {
+    const pushScreen = usePushScreen()
     const [state] = useStore()
     return (
         <div>

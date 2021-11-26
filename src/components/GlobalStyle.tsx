@@ -19,8 +19,8 @@ const DocumentStyle = createGlobalStyle`
     padding-top: 1rem;
     min-height: 100vh;
     color: ${text};
-    background-color: ${background};
-    background-image: ${gradient};
+    background-color: #680068;
+    /* background-image: ${gradient}; */
   }
 `
 

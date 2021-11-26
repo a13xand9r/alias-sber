@@ -7,7 +7,7 @@ export const StoreProvider = ({ children }: { children: ReactNode }) => {
     const [state, dispatch] = useReducer(reducer, initialState)
     return (
         <StoreContext.Provider value={[state, dispatch]}>
-            {/* <GlobalStyles character={state.character} /> */}
+            <GlobalStyles character={state.character} />
             {children}
         </StoreContext.Provider>
     )

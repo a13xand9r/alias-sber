@@ -1,19 +1,20 @@
 import { IconClose, IconPlus } from '@sberdevices/plasma-icons'
-import { PageComponent, useMount } from '@sberdevices/plasma-temple'
-import { Button } from '@sberdevices/plasma-ui'
+import { useMount } from '@sberdevices/plasma-temple'
+import { Button, Container } from '@sberdevices/plasma-ui'
 import { useEffect } from 'react'
 import styled from 'styled-components'
+import { AppHeader } from '../components/AppHeader'
+import { usePushScreen } from '../hooks/usePushScreen'
 import { useStore } from '../hooks/useStore'
 import { actions } from '../store/store'
-import { PageParamsType, PageStateType } from '../types/types'
 import { teamNames } from '../utils/teamNames'
 import { getRandomFromArray, getRandomFromArrayWithOldValues } from '../utils/utils'
 
-export const Container = styled.div`
+export const PageContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 2rem auto;
+    margin: 0.5rem auto;
     text-align: center;
     width: 40rem;
     @media (max-width: 700px){
@@ -22,12 +23,13 @@ export const Container = styled.div`
 `
 
 export const ButtonsBottomContainer = styled.div`
-    position: absolute;
+    /* position: absolute;
     bottom: 10rem;
     left: 0;
-    right: 0;
+    right: 0; */
     margin: auto;
     text-align: center;
+    margin-bottom: 8rem;
 `
 
 export const TeamsContainer = styled.div`
@@ -60,14 +62,17 @@ const DeleteButton = styled(Button)`
     border: none;
 `
 
-export const TeamsPage: PageComponent<PageStateType, 'teams', PageParamsType> = ({ pushScreen }) => {
+export const TeamsPage = () => {
     const [{ teams }, dispatch] = useStore()
+    const pushScreen = usePushScreen()
 
     useMount(() => {
-        const team1 = getRandomFromArray(teamNames)
-        const team2 = getRandomFromArrayWithOldValues(teamNames, [team1])
-        dispatch(actions.addTeam(team1))
-        dispatch(actions.addTeam(team2))
+        if (teams.length < 2) {
+            const team1 = getRandomFromArray(teamNames)
+            const team2 = getRandomFromArrayWithOldValues(teamNames, [team1])
+            dispatch(actions.addTeam(team1))
+            dispatch(actions.addTeam(team2))
+        }
     })
 
     const addTeamHandler = () => {
@@ -85,16 +90,19 @@ export const TeamsPage: PageComponent<PageStateType, 'teams', PageParamsType> = 
     }, [teams])
     return (
         <Container>
-            <TeamsContainer>
-                {teams.map((team, _, arr) => (
-                    <TeamItem key={team.id}>{team.name} {arr.length > 2 && <DeleteButton onClick={() => deleteTeamHandler(team.id)}><IconClose /></DeleteButton>}</TeamItem>
-                ))}
-            </TeamsContainer>
-            <AddButton onClick={addTeamHandler}><IconPlus /> Добавить</AddButton>
-            <ButtonsBottomContainer>
-                <StyledButton onClick={settingsHandler}>Настройки</StyledButton>
-                <StyledButton onClick={continueHandler} view='primary'>Далее</StyledButton>
-            </ButtonsBottomContainer>
+            <AppHeader title='Команды' back={true} onBackCallback={() => pushScreen(-1)} />
+            <PageContainer>
+                <TeamsContainer>
+                    {teams.map((team, _, arr) => (
+                        <TeamItem key={team.id}>{team.name} {arr.length > 2 && <DeleteButton onClick={() => deleteTeamHandler(team.id)}><IconClose /></DeleteButton>}</TeamItem>
+                    ))}
+                </TeamsContainer>
+                <AddButton onClick={addTeamHandler}><IconPlus /> Добавить</AddButton>
+                <ButtonsBottomContainer>
+                    <StyledButton onClick={settingsHandler}>Настройки</StyledButton>
+                    <StyledButton onClick={continueHandler} view='primary'>Далее</StyledButton>
+                </ButtonsBottomContainer>
+            </PageContainer>
         </Container>
     )
 }

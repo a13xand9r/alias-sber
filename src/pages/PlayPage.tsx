@@ -1,37 +1,41 @@
 import { IconChevronDown, IconChevronUp } from '@sberdevices/plasma-icons'
-import { PageComponent, useAssistantOnSmartAppData, useMount } from '@sberdevices/plasma-temple'
 import { secondary } from '@sberdevices/plasma-tokens'
-import { Body1, Headline1, Headline2 } from '@sberdevices/plasma-ui'
+import { Card, Headline1, Headline2 } from '@sberdevices/plasma-ui'
 import React from 'react'
 import styled from 'styled-components'
-import { getWords } from '../api/words'
 import { usePlayRound } from '../hooks/usePlayRound'
+import { usePushScreen } from '../hooks/usePushScreen'
 import { useStore } from '../hooks/useStore'
 import { actions } from '../store/store'
-import { ActionType, AssistantDataAction, PageParamsType, PageStateType } from '../types/types'
-import { getRandomFromArray, getTimerPercentage } from '../utils/utils'
+import { getTimerPercentage } from '../utils/utils'
 
 const Container = styled.div`
     height: 100vh;
+    margin: 0;
     display: flex;
+    position: relative;
     /* margin: 1rem; */
     justify-content: space-between;
     flex-direction: column;
     align-items: center;
 `
 
-export const UpContainer = styled.div`
+const UpContainer = styled.div`
+    position: relative;
+    top: -2rem;
+    left: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-bottom: 1rem;
     background-color: #ff9900ea;
+    height: 20vh;
     width: 100vw;
     padding-top: 2rem;
     padding-bottom: 2rem;
     border-radius: 0% 0% 60% 60%;
     @media (max-width: 700px){
-        border-radius: 0% 0% 30% 30%;
+        border-radius: 0% 0% 25% 25%;
         padding-bottom: 3rem;
     }
 `
@@ -39,17 +43,20 @@ const BottomContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 1rem;
+    /* margin-bottom: 1rem; */
     background-color: #696969ea;
     width: 100vw;
+    height: 35vh;
     padding-top: 2rem;
-    padding-bottom: 10rem;
+    /* padding-bottom: 10rem; */
     border-radius: 60% 60% 0% 0%;
 `
 const CenterContainer = styled.div`
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
     align-items: center;
+    height: 35vh;
     margin-bottom: 1rem;
 `
 const ArrowButton = styled.div`
@@ -71,14 +78,14 @@ const TeamName = styled.div`
     color: ${secondary};
     margin: 0.5rem;
 `
-const Word = styled.div`
+const Word = styled(Card)`
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 15rem;
-    width: 15rem;
+    height: 200px;
+    width: 200px;
     border-radius: 50%;
-    margin: 1rem;
+    /* margin: 1rem; */
     background-color: #8080808b;
 `
 const UpArrow = styled(IconChevronUp)`
@@ -90,26 +97,14 @@ const DownArrow = styled(IconChevronDown)`
     height: 5rem;
 `
 
-export const PlayPage: PageComponent<PageStateType, 'play', PageParamsType> = ({ pushScreen }) => {
+export const PlayPage = () => {
 
     const [isUpArrowColored, setIsUpArrowColored] = React.useState(false)
     const [isDownArrowColored, setIsDownArrowColored] = React.useState(false)
 
+    const pushScreen = usePushScreen()
+
     const [{ teams, playingTeamId, roundWords, timerLimit }, dispatch] = useStore()
-
-    useAssistantOnSmartAppData<AssistantDataAction>(action => {
-        if (!action) {
-            return
-        }
-
-        switch (action.type) {
-            case ActionType.WORDS:
-                // dispatch(actions.setWords(action.payload))
-                break;
-            default:
-                break;
-        }
-    })
 
     const upCallback = () => {
         // setCurrentWord(getRandomFromArray(words))

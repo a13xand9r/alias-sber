@@ -1,11 +1,22 @@
+import { isSberBoxLike } from '@sberdevices/plasma-temple'
 import { Header } from '@sberdevices/plasma-ui'
 
-export const AppHeader = () => {
+export const AppHeader: React.FC<Props> = ({title, back, onBackCallback, minimizeCallback, minimize}) => {
 
     return (
         <Header
-            back={false}
-            title={'Canvas App'}
+            title={title}
+            back={(back && !isSberBoxLike()) || undefined}
+            onBackClick={onBackCallback}
+            // minimize={minimize || undefined}
         />
     )
+}
+
+type Props = {
+    title: string
+    back: boolean
+    onBackCallback: () => void
+    minimize?: boolean
+    minimizeCallback?: () => void
 }
