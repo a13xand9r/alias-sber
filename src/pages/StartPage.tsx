@@ -28,6 +28,10 @@ const UpContainer = styled.div`
     padding-top: 2rem;
     padding-bottom: 2rem;
     border-radius: 0% 0% 60% 60%;
+    @media (max-width: 700px){
+        border-radius: 0% 0% 30% 30%;
+        padding-bottom: 3rem;
+    }
 `
 
 export const StartPage = () => {

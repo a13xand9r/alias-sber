@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { usePushScreen } from '../hooks/usePushScreen'
 import { useStore } from '../hooks/useStore'
 import { actions } from '../store/store'
-import { ButtonsBottomContainer, PageContainer, StyledButton, TeamItem } from './TeamsPage'
+import { ButtonsBottomContainer, PageContainer, StyledButton } from './TeamsPage'
 
 
 export const HeaderContainer = styled.div`
@@ -21,7 +21,7 @@ const UpContainer = styled.div`
     flex-direction: column;
     align-items: center;
     margin-bottom: 1rem;
-    background-color: #ff9900ea;
+    background-color: #ff7b00e3;
     width: 100vw;
     padding-top: 2rem;
     padding-bottom: 2rem;
@@ -32,10 +32,17 @@ const UpContainer = styled.div`
     }
 `
 
+export const TeamItem = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 1.8rem;
+`
+
 export const CenterContainer = styled.div`
     display: flex;
     flex-direction: column;
-    margin: 1rem;
+    margin: 0.2rem;
     /* height: 30vh; */
     justify-content: center;
 `
@@ -66,7 +73,7 @@ export const TeamScorePage = () => {
                         <div style={{marginTop: 0}}><Headline3>{state.wordsCountToWin}</Headline3></div>
                     </div>
                 </HeaderContainer>
-                <TeamsContainer style={{ marginTop: '2rem' }}>
+                <TeamsContainer style={{ marginTop: '1rem' }}>
                     {state.teams.map((team, index) => (
                         <TeamItem
                             key={index}

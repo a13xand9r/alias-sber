@@ -10,32 +10,30 @@ import { actions } from '../store/store'
 import { getTimerPercentage } from '../utils/utils'
 
 const Container = styled.div`
-    height: 100vh;
+    height: 85vh;
     margin: 0;
     display: flex;
-    position: relative;
-    /* margin: 1rem; */
-    justify-content: space-between;
+    justify-content: center;
     flex-direction: column;
     align-items: center;
 `
 
 const UpContainer = styled.div`
-    position: relative;
-    top: -2rem;
+    position: absolute;
+    top: 0;
     left: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-bottom: 1rem;
-    background-color: #ff9900ea;
-    height: 20vh;
+    background-color: #ff7b00e3;
+    height: 9rem;
     width: 100vw;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+    padding-top: 20px;
+    padding-bottom: 20px;
     border-radius: 0% 0% 60% 60%;
     @media (max-width: 700px){
-        border-radius: 0% 0% 25% 25%;
+        border-radius: 0% 0% 30% 30%;
         padding-bottom: 3rem;
     }
 `
@@ -43,13 +41,19 @@ const BottomContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: absolute;
+    bottom: 0;
     /* margin-bottom: 1rem; */
     background-color: #696969ea;
     width: 100vw;
     height: 35vh;
-    padding-top: 2rem;
+    padding-top: 20px;
     /* padding-bottom: 10rem; */
     border-radius: 60% 60% 0% 0%;
+    @media (max-width: 700px){
+        border-radius: 30% 30% 0% 0%;
+        padding-bottom: 3rem;
+    }
 `
 const CenterContainer = styled.div`
     display: flex;
@@ -57,7 +61,7 @@ const CenterContainer = styled.div`
     justify-content: space-around;
     align-items: center;
     height: 35vh;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 `
 const ArrowButton = styled.div`
     border: none;

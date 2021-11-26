@@ -29,14 +29,14 @@ export const ButtonsBottomContainer = styled.div`
     right: 0; */
     margin: auto;
     text-align: center;
-    margin-bottom: 8rem;
+    margin-bottom: 10rem;
 `
 
 export const TeamsContainer = styled.div`
     width: 100%;
 `
 
-export const TeamItem = styled.div`
+const TeamItem = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;

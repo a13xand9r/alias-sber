@@ -3,8 +3,10 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
 import { Providers } from './components/providers/Providers'
-//@ts-ignore
-import('@sberdevices/spatial-navigation')
+if (process.env.NODE_ENV === 'development'){
+    //@ts-ignore
+    import('@sberdevices/spatial-navigation')
+}
 
 ReactDOM.render(
     <React.StrictMode>
