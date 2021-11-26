@@ -1,7 +1,6 @@
 import { actions } from '../store/store';
 import { RemoteKey, useMount, useRemoteListener, useTouchHandler } from '@sberdevices/plasma-temple';
-import { Dispatch, useState, useEffect, useRef, RefObject } from 'react';
-import { ActionsType } from '../types/types';
+import { useState, useEffect, useRef } from 'react';
 import { useStore } from './useStore';
 import { getRandomFromArray } from '../utils/utils';
 import { getWords } from '../api/words';
@@ -14,8 +13,8 @@ export const usePlayRound = (
         finishCallback
     }: PropsType
 ) => {
-    const [{ playingTeamId, words, isDecreasing, timerLimit }, dispatch] = useStore()
-    const [currentWord, setCurrentWord] = useState('')
+    const [{ playingTeamId, words, isDecreasing, timerLimit, roundWords }, dispatch] = useStore()
+    const [currentWord, setCurrentWord] = useState(getRandomFromArray(words))
 
     const [timer, setTimer] = useState<number>(timerLimit)
     const interval = useRef<NodeJS.Timeout>()
@@ -33,25 +32,32 @@ export const usePlayRound = (
         if (timer === 0) clearInterval(interval.current as NodeJS.Timeout)
     }, [timer])
 
-    useMount(() => {
-        getWords().then(words => {
-            dispatch(actions.setWords(words))
-            setCurrentWord(getRandomFromArray(words))
-        })
-    })
-
     const answer = () => {
         setCurrentWord(getRandomFromArray(words))
-        if (timer === 0) finishCallback()
+        if (timer === 0) {
+            const increment = roundWords.reduce((acc, item) => {
+                if (item.isAnswered) return acc + 1
+                else return acc
+            }, 0)
+            dispatch(actions.incrementTeamScore(playingTeamId as string, increment))
+
+            if (isDecreasing){
+                const decrement = roundWords.reduce((acc, item) => {
+                    if (!item.isAnswered) return acc + 1
+                    else return acc
+                }, 0)
+                dispatch(actions.decrementTeamScore(playingTeamId as string, decrement))
+            }
+
+            finishCallback()
+        }
     }
     const rightAnswer = () => {
-        dispatch(actions.increaseCommandStore(playingTeamId as string))
         dispatch(actions.appendRoundWords(currentWord, true))
         upCallback()
         answer()
     }
     const wrongAnswer = () => {
-        isDecreasing && dispatch(actions.decreaseCommandStore(playingTeamId as string))
         dispatch(actions.appendRoundWords(currentWord, false))
         downCallback()
         answer()

@@ -3,6 +3,7 @@ import { useMount } from '@sberdevices/plasma-temple'
 import { Button, Card, Container, Headline4, Body1 } from '@sberdevices/plasma-ui'
 import { useEffect } from 'react'
 import styled from 'styled-components'
+import { getWords } from '../api/words'
 import { AppHeader } from '../components/AppHeader'
 import { usePushScreen } from '../hooks/usePushScreen'
 import { useStore } from '../hooks/useStore'
@@ -77,6 +78,11 @@ export const TeamsPage = () => {
             dispatch(actions.addTeam(team1))
             dispatch(actions.addTeam(team2))
         }
+    })
+    useMount(() => {
+        getWords().then(words => {
+            dispatch(actions.setWords(words))
+        })
     })
 
     const addTeamHandler = () => {

@@ -36,14 +36,14 @@ export const reducer = (state: StateType, action: ActionsType): StateType => {
             const teamsUp: Team[] = state.teams.map(team => ({
                 name: team.name,
                 id: team.id,
-                score: team.id === action.payload ? team.score + 1 : team.score
+                score: team.id === action.payload.id ? team.score + action.payload.score : team.score
             }))
             return { ...state, teams: teamsUp }
         case 'DECREASE_SCORE':
             const teamsDown: Team[] = state.teams.map(team => ({
                 name: team.name,
                 id: team.id,
-                score: team.id === action.payload ? team.score - 1 : team.score
+                score: team.id === action.payload.id ? team.score - action.payload.score : team.score
             }))
             return { ...state, teams: teamsDown }
         case 'SET_WORDS':
@@ -78,8 +78,8 @@ export const actions = {
     setCharacter: (payload: CharacterType) => ({ type: 'SET_CHARACTER', payload } as const),
     addTeam: (name: string) => ({ type: 'ADD_TEAM', payload: name } as const),
     deleteTeam: (id: string) => ({ type: 'DELETE_TEAM', payload: id } as const),
-    increaseCommandStore: (id: string) => ({ type: 'INCREASE_SCORE', payload: id } as const),
-    decreaseCommandStore: (id: string) => ({ type: 'DECREASE_SCORE', payload: id } as const),
+    incrementTeamScore: (id: string, score: number) => ({ type: 'INCREASE_SCORE', payload: { id, score } } as const),
+    decrementTeamScore: (id: string, score: number) => ({ type: 'DECREASE_SCORE', payload: { id, score } } as const),
     setWords: (words: string[]) => ({ type: 'SET_WORDS', payload: words } as const),
     deleteWord: (word: string) => ({ type: 'DELETE_WORD', payload: word } as const),
     setPlayingTeam: (id: string) => ({ type: 'SET_PLAYING_TEAM', payload: id } as const),
