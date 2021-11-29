@@ -56,7 +56,7 @@ const BottomContainer = styled(Card)`
     height: ${detectDevice() === 'mobile' ? '11' : '9'}rem;
     /* height: 35vh; */
     padding-top: ${detectDevice() === 'mobile' ? '20' : '9'}px;
-    padding-bottom: ${detectDevice() === 'mobile' ? '10' : '5'}rem;
+    padding-bottom: ${detectDevice() === 'mobile' ? '14' : '8'}rem;
     overflow: hidden;
     border-radius: 60% 60% 0% 0%;
     @media (max-width: 700px){
