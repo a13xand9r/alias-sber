@@ -17,8 +17,8 @@ export const initialState = {
 
 export const reducer = (state: StateType, action: ActionsType): StateType => {
     switch (action.type) {
-        // case 'SET_CHARACTER':
-        //     return { ...state, character: action.payload }
+        case 'SET_CHARACTER':
+            return { ...state, character: action.payload }
         case 'ADD_TEAM':
             const newCommand: Team = {
                 name: action.payload,

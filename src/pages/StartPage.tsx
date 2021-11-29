@@ -1,5 +1,4 @@
-import { PageComponent } from '@sberdevices/plasma-temple'
-import { Button, Card } from '@sberdevices/plasma-ui'
+import { Card } from '@sberdevices/plasma-ui'
 import styled from 'styled-components'
 import { usePushScreen } from '../hooks/usePushScreen'
 import { useStore } from '../hooks/useStore'
@@ -23,7 +22,8 @@ const UpContainer = styled(Card)`
     background-image: url('./img/background-city.jpeg');
     background-size: 100%;
     background-position-y: 40%;
-    width: 100vw;
+    width: 100%;
+    overflow: hidden;
     padding-top: 2rem;
     padding-bottom: 2rem;
     border-radius: 0% 0% 60% 60%;

@@ -24,7 +24,7 @@ export const initAssistant = (
             console.log(smart_app_data)
             dispatch(smart_app_data)
         }
-        // if (type === 'character') dispatch(actions.setCharacter(character.id))
+        if (type === 'character') dispatch(actions.setCharacter(character.id))
     })
     return assistant
 }

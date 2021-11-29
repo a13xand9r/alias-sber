@@ -23,6 +23,7 @@ const UpContainer = styled(Card)`
     align-items: center;
     margin-bottom: 1rem;
     background-color: #ff7b00e3;
+    overflow: hidden;
     width: 100vw;
     padding-top: 2rem;
     padding-bottom: 2rem;

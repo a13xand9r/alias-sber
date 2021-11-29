@@ -8,14 +8,17 @@ import { usePushScreen } from '../hooks/usePushScreen'
 import { useStore } from '../hooks/useStore'
 import { actions } from '../store/store'
 import { getTimerPercentage } from '../utils/utils'
+import { Swiper, SwiperSlide } from 'swiper/react'
 
 const Container = styled.div`
     height: 85vh;
     margin: 0;
     display: flex;
+    overflow: hidden;
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    overflow: hidden;
 `
 
 const UpContainer = styled(Card)`
@@ -30,6 +33,7 @@ const UpContainer = styled(Card)`
     margin-bottom: 1rem;
     background-color: #ff7b00e3;
     height: ${detectDevice() === 'mobile' ? '7' : '5'}rem;
+    overflow: hidden;
     /* height: 4rem; */
     width: 100vw;
     /* padding-top: 20px; */
@@ -52,7 +56,8 @@ const BottomContainer = styled(Card)`
     height: ${detectDevice() === 'mobile' ? '11' : '9'}rem;
     /* height: 35vh; */
     padding-top: ${detectDevice() === 'mobile' ? '20' : '9'}px;
-    /* padding-bottom: 10rem; */
+    padding-bottom: ${detectDevice() === 'mobile' ? '10' : '3'}rem;
+    overflow: hidden;
     border-radius: 60% 60% 0% 0%;
     @media (max-width: 700px){
         border-radius: 30% 30% 0% 0%;
@@ -139,6 +144,21 @@ export const PlayPage = () => {
         }
     }, [isDownArrowColored])
 
+    React.useEffect(() => {
+        // const element = document.getElementById('mySwipe');
+        // window.mySwipe = new Swiper(element, {
+        //     startSlide: 0,
+        //     auto: 3000,
+        //     draggable: false,
+        //     autoRestart: false,
+        //     continuous: true,
+        //     disableScroll: true,
+        //     stopPropagation: true,
+        //     callback: function (index, element) { },
+        //     transitionEnd: function (index, element) { }
+        // });
+    }, [])
+
     const finishCallback = () => {
         if (teams.findIndex(team => team.id === playingTeamId) === teams.length - 1) {
             dispatch(actions.increaseRoundNumber())
@@ -177,11 +197,16 @@ export const PlayPage = () => {
                 <ArrowButton
                     tabIndex={0}
                     onClick={onUpClick}
-                    style={{marginBottom: '-1rem'}}
-                    >
+                    style={{ marginBottom: '-1rem' }}
+                >
                     <UpArrow color={isUpArrowColored ? 'yellow' : secondary} />
                 </ArrowButton>
-                <Word ref={elementRef}><Headline3>{currentWord}</Headline3></Word>
+                <Word
+                    // ref={elementRef}
+                    draggable={true}
+                >
+                    <Headline3>{currentWord}</Headline3>
+                </Word>
                 <ArrowButton
                     tabIndex={0}
                     onClick={onDownClick}

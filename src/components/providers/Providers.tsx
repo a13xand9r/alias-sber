@@ -4,18 +4,18 @@ import { AssistantProvider } from './AssistantProvider'
 import { StoreProvider } from './StoreProvider'
 import {
     BrowserRouter as Router,
-  } from 'react-router-dom'
+} from 'react-router-dom'
 
 export const Providers = ({ children }: { children: ReactNode }) => {
     return (
-        <StoreProvider>
-            <AssistantProvider>
-                <Router>
+        <Router>
+            <StoreProvider>
+                <AssistantProvider>
                     <DeviceThemeProvider>
                         {children}
                     </DeviceThemeProvider>
-                </Router>
-            </AssistantProvider>
-        </StoreProvider>
+                </AssistantProvider>
+            </StoreProvider>
+        </Router>
     )
 }
