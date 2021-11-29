@@ -14,6 +14,13 @@ export const SettingsPage = () => {
         console.log(e.target.checked)
         dispatch(actions.setDecreasingPoints(e.target.checked))
     }
+    const onContinueClick = () => {
+        localStorage.setItem('timerLimit', state.timerLimit.toString())
+        localStorage.setItem('isDecreasing', state.isDecreasing.toString())
+        localStorage.setItem('wordsCountToWin', state.wordsCountToWin.toString())
+        
+        pushScreen('teamScore')
+    }
     return (
         <Container>
             <AppHeader title='Настройки' back={true} onBackCallback={() => pushScreen(-1)} />
@@ -47,7 +54,7 @@ export const SettingsPage = () => {
                 </div>
                 <Footnote1 style={{ margin: '0.5rem', marginBottom: '1rem', color: secondary }}>Каждое пропущенное слово отнимает одно очко</Footnote1>
                 <ButtonsBottomContainer>
-                    <StyledButton view='primary' onClick={() => pushScreen('teamScore')}>Далее</StyledButton>
+                    <StyledButton view='primary' onClick={onContinueClick}>Далее</StyledButton>
                 </ButtonsBottomContainer>
             </PageContainer>
         </Container>

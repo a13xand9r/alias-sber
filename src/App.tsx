@@ -10,9 +10,22 @@ import {
 } from 'react-router-dom'
 import { VictoryPage } from './pages/VictoryPage';
 import { RulesPage } from './pages/RulesPage';
+import { useMount } from '@sberdevices/plasma-temple';
+import { useStore } from './hooks/useStore';
+import { actions } from './store/store';
 
 
 const App = () => {
+    const [_, dispatch] = useStore()
+    useMount(() => {
+        const timerLimit = localStorage.getItem('timerLimit')
+        const isDecreasing = localStorage.getItem('isDecreasing')
+        const wordsCountToWin = localStorage.getItem('wordsCountToWin')
+
+        if (timerLimit) dispatch(actions.setTimerLimit(Number(timerLimit)))
+        if (isDecreasing === 'true') dispatch(actions.setDecreasingPoints(true))
+        if (wordsCountToWin) dispatch(actions.setWordsCountToWin(Number(wordsCountToWin)))
+    })
     return (
         <Routes>
             <Route path="/play" element={<PlayPage />} />
