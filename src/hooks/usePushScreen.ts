@@ -5,7 +5,7 @@ import { PageStateType } from '../types/types'
 
 export const usePushScreen = () => {
     const navigate = useNavigate()
-    return (to: keyof PageStateType | -1) => {
+    return (to: keyof PageStateType | '' | -1) => {
         console.log(to)
         if (to === -1) navigate(to)
         else navigate(`/${to}`)

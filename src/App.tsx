@@ -8,6 +8,8 @@ import {
     Routes,
     Route
 } from 'react-router-dom'
+import { VictoryPage } from './pages/VictoryPage';
+import { RulesPage } from './pages/RulesPage';
 
 
 const App = () => {
@@ -18,6 +20,8 @@ const App = () => {
             <Route path="/teamScore" element={<TeamScorePage />} />
             <Route path="/teams" element={<TeamsPage />} />
             <Route path="/settings" element={<SettingsPage />} />
+            <Route path="/victory" element={<VictoryPage />} />
+            <Route path="/rules" element={<RulesPage />} />
             <Route path="/" element={<StartPage />} />
         </Routes>
     )
