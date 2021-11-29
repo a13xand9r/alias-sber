@@ -53,7 +53,7 @@ const BottomContainer = styled(Card)`
     /* margin-bottom: 1rem; */
     /* background-color: #696969ea; */
     width: 100vw;
-    height: ${detectDevice() === 'mobile' ? '15' : '11'}rem;
+    height: ${detectDevice() === 'mobile' ? '15' : '10.5'}rem;
     /* height: 35vh; */
     padding-top: ${detectDevice() === 'mobile' ? '20' : '9'}px;
     /* padding-bottom: ${detectDevice() === 'mobile' ? '14' : '8'}rem; */
@@ -70,7 +70,7 @@ const CenterContainer = styled.div`
     justify-content: space-around;
     align-items: center;
     height: 35vh;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
 `
 const ArrowButton = styled.div`
     border: none;
