@@ -95,7 +95,7 @@ export const TeamScorePage = () => {
             <CenterContainer>
                 <Headline3 style={{marginBottom: '1rem'}}>Раунд {state.roundNumber}</Headline3>
                 <Body1 style={{marginBottom: '1rem', color: secondary}}>готовятся к игре</Body1>
-                <Headline3 style={{color: 'orange'}}>{state.teams.find(team => team.id === state.playingTeamId)?.name}</Headline3>
+                <Headline3 style={{color: 'orange'}}>{state.currentTeam?.name}</Headline3>
             </CenterContainer>
             <ButtonsBottomContainer>
                 <StyledButton view='primary' onClick={playHandler}>Поехали!</StyledButton>

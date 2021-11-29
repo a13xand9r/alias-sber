@@ -18,28 +18,28 @@ export const SettingsPage = () => {
         <Container>
             <AppHeader title='Настройки' back={true} onBackCallback={() => pushScreen(-1)} />
             <PageContainer>
-            <Headline4>Количество слов для достижения победы</Headline4>
+            <Headline4>Время раунда</Headline4>
                 <div style={{ marginBottom: '2rem' }}>
                     <Stepper
                         style={{ margin: '0.5rem' }}
                         step={5}
-                        value={state.wordsCountToWin}
+                        value={state.timerLimit}
                         min={10}
-                        max={100}
+                        max={120}
                         showRemove={false}
-                        onChange={(value) => dispatch(actions.setWordsCountToWin(value))}
+                        onChange={(value) => dispatch(actions.setTimerLimit(value))}
                     />
                     секунд
                 </div>
-                <Headline4>Время раунда</Headline4>
+                <Headline4>Количество слов для достижения победы</Headline4>
                 <Stepper
                     style={{ marginTop: '1rem', marginBottom: '1.7rem' }}
                     step={5}
-                    value={state.timerLimit}
+                    value={state.wordsCountToWin}
                     min={10}
-                    max={120}
+                    max={100}
                     showRemove={false}
-                    onChange={(value) => dispatch(actions.setTimerLimit(value))}
+                    onChange={(value) => dispatch(actions.setWordsCountToWin(value))}
                 />
                 <div style={{display: 'flex'}}>
                     <Headline4 style={{marginRight: '1rem'}}>Штраф за пропуск</Headline4>

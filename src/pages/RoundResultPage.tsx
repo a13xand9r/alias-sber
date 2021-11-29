@@ -1,9 +1,12 @@
+import { useMount } from '@sberdevices/plasma-temple'
 import { secondary } from '@sberdevices/plasma-tokens'
 import { Button, Container } from '@sberdevices/plasma-ui'
 import styled from 'styled-components'
 import { AppHeader } from '../components/AppHeader'
 import { usePushScreen } from '../hooks/usePushScreen'
 import { useStore } from '../hooks/useStore'
+import { actions } from '../store/store'
+import { victoryCheck } from '../utils/utils'
 import { ButtonsBottomContainer, StyledButton } from './TeamsPage'
 
 
@@ -38,11 +41,32 @@ const LikeImg = styled.img`
 `
 
 export const RoundResultPage = () => {
-    const [{roundWords}] = useStore()
+    const [{ roundWords, winningTeam, playingTeams, wordsCountToWin, currentTeam }, dispatch] = useStore()
     const pushScreen = usePushScreen()
 
+    useMount(() => {
+        console.log(playingTeams.findIndex(team => team.id === currentTeam?.id))
+        console.log(playingTeams.length)
+        if (playingTeams.findIndex(team => team.id === currentTeam?.id) === playingTeams.length - 1) {
+            const winningTeams = victoryCheck(playingTeams, wordsCountToWin)
+            console.log('winningTeams', winningTeams)
+            if (winningTeams && winningTeams.length > 0) {
+                dispatch(actions.setOverWordsLimit(true))
+                if (winningTeams.length === 1) {
+                    dispatch(actions.setWinningTeam(winningTeams[0].id))
+                } else if (winningTeams.length > 1) {
+                    dispatch(actions.setPlayingTeams(winningTeams))
+                }
+            }
+            dispatch(actions.increaseRoundNumber())
+        }
+        dispatch(actions.setNextTeam())
+    })
+
     const continueHandler = () => {
-        pushScreen('teamScore')
+        if (winningTeam) {
+            pushScreen('victory')
+        } else pushScreen('teamScore')
     }
     return (
         <Container>

@@ -37,7 +37,8 @@ export interface PageStateType {
     roundResult: null
     rules: null
     teamScore: null
-    questions: Questions
+    questions: Questions,
+    victory: null
 }
 
 export enum ActionId {

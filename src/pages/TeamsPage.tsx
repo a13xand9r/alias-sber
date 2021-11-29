@@ -96,7 +96,7 @@ export const TeamsPage = () => {
     const settingsHandler = () => pushScreen('settings')
 
     useEffect(() => {
-        if (teams.length) dispatch(actions.setPlayingTeam(teams[0].id))
+        if (teams.length) dispatch(actions.setCurrentTeam(teams[0].id))
     }, [teams])
     return (
         <Container>

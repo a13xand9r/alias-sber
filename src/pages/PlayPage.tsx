@@ -56,7 +56,7 @@ const BottomContainer = styled(Card)`
     height: ${detectDevice() === 'mobile' ? '11' : '9'}rem;
     /* height: 35vh; */
     padding-top: ${detectDevice() === 'mobile' ? '20' : '9'}px;
-    padding-bottom: ${detectDevice() === 'mobile' ? '10' : '3'}rem;
+    padding-bottom: ${detectDevice() === 'mobile' ? '10' : '5'}rem;
     overflow: hidden;
     border-radius: 60% 60% 0% 0%;
     @media (max-width: 700px){
@@ -121,16 +121,12 @@ export const PlayPage = () => {
     const [isUpArrowColored, setIsUpArrowColored] = React.useState(false)
     const [isDownArrowColored, setIsDownArrowColored] = React.useState(false)
 
-    const pushScreen = usePushScreen()
-
-    const [{ teams, playingTeamId, roundWords, timerLimit }, dispatch] = useStore()
+    const [{ currentTeam, timerLimit }, dispatch] = useStore()
 
     const upCallback = () => {
-        // setCurrentWord(getRandomFromArray(words))
         setIsUpArrowColored(true)
     }
     const downCallback = () => {
-        // setCurrentWord(getRandomFromArray(words))
         setIsDownArrowColored(true)
     }
     React.useEffect(() => {
@@ -160,36 +156,26 @@ export const PlayPage = () => {
     }, [])
 
     const finishCallback = () => {
-        if (teams.findIndex(team => team.id === playingTeamId) === teams.length - 1) {
-            dispatch(actions.increaseRoundNumber())
-        }
-        dispatch(actions.setNextPlayingTeam())
-        pushScreen('roundResult')
     }
 
-    const { timer, currentWord, elementRef, onDownClick, onUpClick } = usePlayRound({
+    const {
+        timer,
+        currentWord,
+        elementRef,
+        onDownClick,
+        onUpClick,
+        rightCount,
+        wrongCount
+    } = usePlayRound({
         downCallback,
         upCallback,
         finishCallback
     })
 
-    const rightCount = React.useMemo(() => {
-        return roundWords.reduce((acc, item) => {
-            if (item.isAnswered) return acc + 1
-            return acc
-        }, 0)
-    }, [roundWords])
-    const wrongCount = React.useMemo(() => {
-        return roundWords.reduce((acc, item) => {
-            if (!item.isAnswered) return acc + 1
-            return acc
-        }, 0)
-    }, [roundWords])
-
     return (
         <Container>
             <UpContainer>
-                <TeamName>{teams.find(team => team.id === playingTeamId)?.name}</TeamName>
+                <TeamName>{currentTeam?.name}</TeamName>
                 <Headline1>{rightCount}</Headline1>
                 <div>отгадано</div>
             </UpContainer>
