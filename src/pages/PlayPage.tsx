@@ -53,10 +53,10 @@ const BottomContainer = styled(Card)`
     /* margin-bottom: 1rem; */
     /* background-color: #696969ea; */
     width: 100vw;
-    height: ${detectDevice() === 'mobile' ? '11' : '9'}rem;
+    height: ${detectDevice() === 'mobile' ? '15' : '11'}rem;
     /* height: 35vh; */
     padding-top: ${detectDevice() === 'mobile' ? '20' : '9'}px;
-    padding-bottom: ${detectDevice() === 'mobile' ? '14' : '8'}rem;
+    /* padding-bottom: ${detectDevice() === 'mobile' ? '14' : '8'}rem; */
     overflow: hidden;
     border-radius: 60% 60% 0% 0%;
     @media (max-width: 700px){
