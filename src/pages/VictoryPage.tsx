@@ -1,4 +1,5 @@
 import { secondary } from '@sberdevices/plasma-core/tokens'
+import { useMount } from '@sberdevices/plasma-temple'
 import { Body1, Card, Container, Headline3 } from '@sberdevices/plasma-ui'
 import styled from 'styled-components'
 import { AppHeader } from '../components/AppHeader'
@@ -78,6 +79,12 @@ const TeamItem = styled.div`
 export const VictoryPage = () => {
     const pushScreen = usePushScreen()
     const [state] = useStore()
+
+    useMount(() => {
+        let audio = new Audio('./sounds/sm-sounds-game-win-1.mp3')
+        console.log(audio)
+        audio.play()
+    })
     return (
         <Container>
             <AppHeader title='Победа' back={true} onBackCallback={() => pushScreen(-1)} />

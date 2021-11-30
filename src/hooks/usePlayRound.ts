@@ -45,51 +45,35 @@ export const usePlayRound = (
         pushScreen('roundResult')
     }
 
-    // useEffect(() => {
-    //     if (timer === 0) {
-    //         if (playingTeams.findIndex(team => team.id === currentTeam?.id) === teams.length - 1) {
-    //             const winningTeams = victoryCheck(playingTeams, wordsCountToWin)
-    //             if (winningTeams) {
-    //                 if (winningTeams.length === 1) {
-    //                     dispatch(actions.setWinningTeam(winningTeams[0].id))
-    //                     pushScreen('victory')
-    //                 } else if (winningTeams.length > 1) {
-    //                     dispatch(actions.setPlayingTeams(winningTeams))
-    //                     dispatch(actions.setNextTeam())
-    //                     dispatch(actions.increaseRoundNumber())
-    //                     pushScreen('roundResult')
-    //                 } else {
-    //                     dispatch(actions.setNextTeam())
-    //                     dispatch(actions.increaseRoundNumber())
-    //                     pushScreen('roundResult')
-    //                 }
-    //             } else {
-    //                 dispatch(actions.setNextTeam())
-    //                 dispatch(actions.increaseRoundNumber())
-    //                 pushScreen('roundResult')
-    //             }
-    //         } else {
-    //             dispatch(actions.setNextTeam())
-    //             pushScreen('roundResult')
-    //         }
-    // }
-
-    // }, [currentTeam?.id])
-
     const answer = () => {
         setCurrentWord(getRandomFromArray(words))
         if (timer === 0) {
             finishAnswer()
         }
     }
+    const playAudio = (src: string) => {
+        let audio = new Audio(src)
+        audio.play()
+    }
+    useEffect(() => {
+        if (timer === 3){
+            playAudio('./sounds/timer.mp3')
+        }
+        if (timer === 0){
+            playAudio('./sounds/gong.mp3')
+        }
+    }, [timer])
+
     const rightAnswer = () => {
         dispatch(actions.appendRoundWords(currentWord, true))
         upCallback()
+        playAudio('./sounds/sm-sounds-game-ping-1.mp3')
         answer()
     }
     const wrongAnswer = () => {
         dispatch(actions.appendRoundWords(currentWord, false))
         downCallback()
+        playAudio('./sounds/__kantouth__cartoon-bing-lo.mp3')
         answer()
     }
 

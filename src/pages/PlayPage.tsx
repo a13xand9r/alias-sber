@@ -9,6 +9,7 @@ import { useStore } from '../hooks/useStore'
 import { actions } from '../store/store'
 import { getTimerPercentage } from '../utils/utils'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import { useMount } from '@sberdevices/plasma-temple'
 
 const Container = styled.div`
     height: 85vh;
