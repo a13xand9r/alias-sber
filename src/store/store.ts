@@ -65,7 +65,7 @@ export const reducer = (state: StateType, action: ActionsType): StateType => {
                         id: team.id,
                         score: team.id === action.payload.id ? team.score + increment : team.score
                     }))
-                }
+            }
         case 'DECREASE_SCORE':
             const decrement = state.roundWords.reduce((acc, item) => {
                 if (!item.isAnswered) return acc + 1
@@ -95,7 +95,7 @@ export const reducer = (state: StateType, action: ActionsType): StateType => {
             currentTeam = state.teams.find(team => team.id === action.payload)
             return { ...state, currentTeam: { ...currentTeam } as Team }
         case 'SET_WINNING_TEAM':
-            return { ...state, winningTeam: state.teams.find(team => team.id === action.payload) as Team  }
+            return { ...state, winningTeam: state.teams.find(team => team.id === action.payload) as Team }
         case 'SET_NEXT_TEAM':
             let currentTeamIndex = state.playingTeams.findIndex((team) => team.id === state.currentTeam?.id)
             let nextPlyingTeam = currentTeamIndex + 1 === state.playingTeams.length
@@ -107,11 +107,11 @@ export const reducer = (state: StateType, action: ActionsType): StateType => {
         case 'CLEAR_ROUND_WORD':
             return { ...state, roundWords: [] }
         case 'SET_TIMER_LIMIT':
-            return { ...state, timerLimit: action.payload }
+            return { ...state, timerLimit: action.payload.limit }
         case 'SET_WORDS_COUNT_TO_WIN':
-            return { ...state, wordsCountToWin: action.payload }
+            return { ...state, wordsCountToWin: action.payload.count }
         case 'SET_DECREASING_POINTS':
-            return { ...state, isDecreasing: action.payload }
+            return { ...state, isDecreasing: action.payload.isDecreasing }
         case 'INCREASE_ROUND_NUMBER':
             return { ...state, roundNumber: state.roundNumber + 1 }
         case 'SET_ROUND_NUMBER':
@@ -137,9 +137,9 @@ export const actions = {
     setNextTeam: () => ({ type: 'SET_NEXT_TEAM' } as const),
     appendRoundWords: (word: string, isAnswered: boolean) => ({ type: 'APPEND_ROUND_WORD', payload: { word, isAnswered } } as const),
     clearRoundWords: () => ({ type: 'CLEAR_ROUND_WORD' } as const),
-    setTimerLimit: (limit: number) => ({ type: 'SET_TIMER_LIMIT', payload: limit } as const),
-    setWordsCountToWin: (count: number) => ({ type: 'SET_WORDS_COUNT_TO_WIN', payload: count } as const),
-    setDecreasingPoints: (isDecreasing: boolean) => ({ type: 'SET_DECREASING_POINTS', payload: isDecreasing } as const),
+    setTimerLimit: (limit: number) => ({ type: 'SET_TIMER_LIMIT', payload: { limit } } as const),
+    setWordsCountToWin: (count: number) => ({ type: 'SET_WORDS_COUNT_TO_WIN', payload: { count } } as const),
+    setDecreasingPoints: (isDecreasing: boolean) => ({ type: 'SET_DECREASING_POINTS', payload: { isDecreasing } } as const),
     increaseRoundNumber: () => ({ type: 'INCREASE_ROUND_NUMBER' } as const),
     setRoundNumber: (round: number) => ({ type: 'SET_ROUND_NUMBER', payload: round } as const),
     setOverWordsLimit: (payload: boolean) => ({ type: 'SET_OVER_WORDS_LIMIT', payload } as const),
