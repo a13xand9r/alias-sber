@@ -28,7 +28,7 @@ export const SettingsPage = () => {
             assistant.on('data', ({ smart_app_data }: any) => {
                 if (smart_app_data) {
                     console.log(smart_app_data)
-                    switch (smart_app_data) {
+                    switch (smart_app_data.type) {
                         case 'NAVIGATION_BACK':
                             pushScreen(-1)
                             break;
