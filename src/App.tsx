@@ -25,6 +25,8 @@ const App = () => {
         if (timerLimit) dispatch(actions.setTimerLimit(Number(timerLimit)))
         if (isDecreasing === 'true') dispatch(actions.setDecreasingPoints(true))
         if (wordsCountToWin) dispatch(actions.setWordsCountToWin(Number(wordsCountToWin)))
+
+        console.log(process.env.NODE_ENV)
     })
     return (
         <Routes>
