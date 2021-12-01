@@ -93,23 +93,27 @@ export const TeamsPage = () => {
     const settingsHandler = () => pushScreen('settings')
 
     const assistant = useAssistant()
-    assistant.on('data', ({ smart_app_data }: any) => {
-        if (smart_app_data) {
-            console.log(smart_app_data)
-            switch (smart_app_data) {
-                case 'NAVIGATION_BACK':
-                    pushScreen(-1)
-                    break;
-                case 'NAVIGATION_SETTINGS':
-                    pushScreen('settings')
-                    break;
-                case 'NAVIGATION_NEXT':
-                    pushScreen('teamScore')
-                    break;
-                default:
-            }
+    useEffect(() => {
+        if (assistant){
+            assistant.on('data', ({ smart_app_data }: any) => {
+                if (smart_app_data) {
+                    console.log(smart_app_data)
+                    switch (smart_app_data) {
+                        case 'NAVIGATION_BACK':
+                            pushScreen(-1)
+                            break;
+                        case 'NAVIGATION_SETTINGS':
+                            pushScreen('settings')
+                            break;
+                        case 'NAVIGATION_NEXT':
+                            pushScreen('teamScore')
+                            break;
+                        default:
+                    }
+                }
+            })
         }
-    })
+    }, [assistant])
 
     useEffect(() => {
         if (teams.length) dispatch(actions.setCurrentTeam(teams[0].id))

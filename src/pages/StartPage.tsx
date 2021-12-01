@@ -1,4 +1,5 @@
 import { Card } from '@sberdevices/plasma-ui'
+import { useEffect } from 'react'
 import styled from 'styled-components'
 import { useAssistant } from '../hooks/useAssistant'
 import { usePushScreen } from '../hooks/usePushScreen'
@@ -38,20 +39,24 @@ export const StartPage = () => {
     const pushScreen = usePushScreen()
 
     const assistant = useAssistant()
-    assistant.on('data', ({ smart_app_data }: any) => {
-        if (smart_app_data) {
-            console.log(smart_app_data)
-            switch (smart_app_data) {
-                case 'NAVIGATION_PLAY':
-                    pushScreen('teams')
-                    break;
-                case 'NAVIGATION_RULES':
-                    pushScreen('rules')
-                    break;
-                default:
-            }
+    useEffect(() => {
+        if (assistant){
+            assistant.on('data', ({ smart_app_data }: any) => {
+                if (smart_app_data) {
+                    console.log(smart_app_data)
+                    switch (smart_app_data) {
+                        case 'NAVIGATION_PLAY':
+                            pushScreen('teams')
+                            break;
+                        case 'NAVIGATION_RULES':
+                            pushScreen('rules')
+                            break;
+                        default:
+                    }
+                }
+            })
         }
-    })
+    }, [assistant])
     return (
         <div>
             <UpContainer></UpContainer>

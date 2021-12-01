@@ -5,6 +5,7 @@ import { AppHeader } from '../components/AppHeader'
 import { usePushScreen } from '../hooks/usePushScreen'
 import { PageContainer, StyledButton } from './TeamsPage'
 import { useAssistant } from '../hooks/useAssistant'
+import { useEffect } from 'react'
 
 const StartTextBox = styled(TextBox)`
     text-align: start;
@@ -13,17 +14,23 @@ const StartTextBox = styled(TextBox)`
 export const RulesPage = () => {
     const pushScreen = usePushScreen()
     const assistant = useAssistant()
-    assistant.on('data', ({ smart_app_data }: any) => {
-        if (smart_app_data) {
-            console.log(smart_app_data)
-            switch (smart_app_data) {
-                case 'NAVIGATION_BACK':
-                    pushScreen(-1)
-                    break;
-                default:
-            }
+
+    useEffect(() => {
+        if (assistant){
+            assistant.on('data', ({ smart_app_data }: any) => {
+                if (smart_app_data) {
+                    console.log(smart_app_data)
+                    switch (smart_app_data) {
+                        case 'NAVIGATION_BACK':
+                            pushScreen(-1)
+                            break;
+                        default:
+                    }
+                }
+            })
         }
-    })
+    }, [assistant])
+
     return (
         <Container style={{marginBottom: '5rem'}}>
             <AppHeader title='Настройки' back={true} onBackCallback={() => pushScreen(-1)} />

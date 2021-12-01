@@ -1,6 +1,7 @@
 import { useMount } from '@sberdevices/plasma-temple'
 import { secondary } from '@sberdevices/plasma-tokens'
 import { Button, Container } from '@sberdevices/plasma-ui'
+import { useEffect } from 'react'
 import styled from 'styled-components'
 import { AppHeader } from '../components/AppHeader'
 import { useAssistant } from '../hooks/useAssistant'
@@ -71,17 +72,22 @@ export const RoundResultPage = () => {
     }
 
     const assistant = useAssistant()
-    assistant.on('data', ({ smart_app_data }: any) => {
-        if (smart_app_data) {
-            console.log(smart_app_data)
-            switch (smart_app_data) {
-                case 'NAVIGATION_NEXT':
-                    pushScreen('teamScore')
-                    break;
-                default:
-            }
+
+    useEffect(() => {
+        if (assistant){
+            assistant.on('data', ({ smart_app_data }: any) => {
+                if (smart_app_data) {
+                    console.log(smart_app_data)
+                    switch (smart_app_data) {
+                        case 'NAVIGATION_NEXT':
+                            pushScreen('teamScore')
+                            break;
+                        default:
+                    }
+                }
+            })
         }
-    })
+    }, [assistant])
 
     return (
         <Container>

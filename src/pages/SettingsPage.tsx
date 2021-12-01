@@ -1,6 +1,6 @@
 import { secondary } from '@sberdevices/plasma-tokens'
 import { Container, Footnote1, Headline4, Stepper, Switch } from '@sberdevices/plasma-ui'
-import { ChangeEvent } from 'react'
+import { ChangeEvent, useEffect } from 'react'
 import { AppHeader } from '../components/AppHeader'
 import { useAssistant } from '../hooks/useAssistant'
 import { usePushScreen } from '../hooks/usePushScreen'
@@ -23,20 +23,24 @@ export const SettingsPage = () => {
     }
 
     const assistant = useAssistant()
-    assistant.on('data', ({ smart_app_data }: any) => {
-        if (smart_app_data) {
-            console.log(smart_app_data)
-            switch (smart_app_data) {
-                case 'NAVIGATION_BACK':
-                    pushScreen(-1)
-                    break;
-                case 'NAVIGATION_NEXT':
-                    pushScreen('teamScore')
-                    break;
-                default:
-            }
+    useEffect(() => {
+        if (assistant){
+            assistant.on('data', ({ smart_app_data }: any) => {
+                if (smart_app_data) {
+                    console.log(smart_app_data)
+                    switch (smart_app_data) {
+                        case 'NAVIGATION_BACK':
+                            pushScreen(-1)
+                            break;
+                        case 'NAVIGATION_NEXT':
+                            pushScreen('teamScore')
+                            break;
+                        default:
+                    }
+                }
+            })
         }
-    })
+    }, [assistant])
 
     return (
         <Container>
