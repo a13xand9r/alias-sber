@@ -2,6 +2,7 @@ import { useMount } from '@sberdevices/plasma-temple'
 import { secondary } from '@sberdevices/plasma-tokens'
 import { Headline1, Headline3, Body1, Card } from '@sberdevices/plasma-ui'
 import styled from 'styled-components'
+import { useAssistant } from '../hooks/useAssistant'
 import { usePushScreen } from '../hooks/usePushScreen'
 import { useStore } from '../hooks/useStore'
 import { actions } from '../store/store'
@@ -71,6 +72,20 @@ export const TeamScorePage = () => {
         dispatch(actions.clearRoundWords())
         pushScreen('play')
     }
+
+    const assistant = useAssistant()
+    assistant.on('data', ({ smart_app_data }: any) => {
+        if (smart_app_data) {
+            console.log(smart_app_data)
+            switch (smart_app_data) {
+                case 'NAVIGATION_PLAY':
+                    pushScreen('play')
+                    break;
+                default:
+            }
+        }
+    })
+
     return (
         <PageContainer>
             <UpContainer>

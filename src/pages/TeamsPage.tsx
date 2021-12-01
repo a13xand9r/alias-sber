@@ -1,15 +1,14 @@
 import { IconClose, IconPlus } from '@sberdevices/plasma-icons'
 import { useMount } from '@sberdevices/plasma-temple'
-import { Button, Card, Container, Headline4, Body1 } from '@sberdevices/plasma-ui'
+import { Button, Card, Container, Body1 } from '@sberdevices/plasma-ui'
 import { useEffect } from 'react'
 import styled from 'styled-components'
 import { getWords } from '../api/words'
 import { AppHeader } from '../components/AppHeader'
+import { useAssistant } from '../hooks/useAssistant'
 import { usePushScreen } from '../hooks/usePushScreen'
 import { useStore } from '../hooks/useStore'
 import { actions } from '../store/store'
-import { teamNames } from '../utils/teamNames'
-import { getRandomFromArray, getRandomFromArrayWithOldValues } from '../utils/utils'
 
 export const PageContainer = styled.div`
     display: flex;
@@ -73,10 +72,8 @@ export const TeamsPage = () => {
 
     useMount(() => {
         if (teams.length < 2) {
-            const team1 = getRandomFromArray(teamNames)
-            const team2 = getRandomFromArrayWithOldValues(teamNames, [team1])
-            dispatch(actions.addTeam(team1))
-            dispatch(actions.addTeam(team2))
+            dispatch(actions.addTeam())
+            dispatch(actions.addTeam())
         }
     })
     useMount(() => {
@@ -86,7 +83,7 @@ export const TeamsPage = () => {
     })
 
     const addTeamHandler = () => {
-        dispatch(actions.addTeam(getRandomFromArrayWithOldValues(teamNames, teams.map(team => team.name))))
+        dispatch(actions.addTeam())
         console.log(teams)
     }
     const deleteTeamHandler = (id: string) => {
@@ -94,6 +91,25 @@ export const TeamsPage = () => {
     }
     const continueHandler = () => pushScreen('teamScore')
     const settingsHandler = () => pushScreen('settings')
+
+    const assistant = useAssistant()
+    assistant.on('data', ({ smart_app_data }: any) => {
+        if (smart_app_data) {
+            console.log(smart_app_data)
+            switch (smart_app_data) {
+                case 'NAVIGATION_BACK':
+                    pushScreen(-1)
+                    break;
+                case 'NAVIGATION_SETTINGS':
+                    pushScreen('settings')
+                    break;
+                case 'NAVIGATION_NEXT':
+                    pushScreen('teamScore')
+                    break;
+                default:
+            }
+        }
+    })
 
     useEffect(() => {
         if (teams.length) dispatch(actions.setCurrentTeam(teams[0].id))

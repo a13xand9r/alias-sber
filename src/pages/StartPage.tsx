@@ -1,5 +1,6 @@
 import { Card } from '@sberdevices/plasma-ui'
 import styled from 'styled-components'
+import { useAssistant } from '../hooks/useAssistant'
 import { usePushScreen } from '../hooks/usePushScreen'
 import { useStore } from '../hooks/useStore'
 import { StyledButton } from './TeamsPage'
@@ -35,14 +36,29 @@ const UpContainer = styled(Card)`
 
 export const StartPage = () => {
     const pushScreen = usePushScreen()
-    const [state] = useStore()
+
+    const assistant = useAssistant()
+    assistant.on('data', ({ smart_app_data }: any) => {
+        if (smart_app_data) {
+            console.log(smart_app_data)
+            switch (smart_app_data) {
+                case 'NAVIGATION_PLAY':
+                    pushScreen('teams')
+                    break;
+                case 'NAVIGATION_RULES':
+                    pushScreen('rules')
+                    break;
+                default:
+            }
+        }
+    })
     return (
         <div>
-        <UpContainer></UpContainer>
-        <Container>
-            <StyledButton view='primary' onClick={() => pushScreen('teams')}>Новая игра</StyledButton>
-            <StyledButton onClick={() => pushScreen('rules')}>Правила</StyledButton>
-        </Container>
+            <UpContainer></UpContainer>
+            <Container>
+                <StyledButton view='primary' onClick={() => pushScreen('teams')}>Новая игра</StyledButton>
+                <StyledButton onClick={() => pushScreen('rules')}>Правила</StyledButton>
+            </Container>
         </div>
     )
 }

@@ -1,13 +1,10 @@
-import { Button, detectDevice } from '@sberdevices/plasma-ui'
-import { secondary } from '@sberdevices/plasma-tokens'
-import { Card, CardBody, CardContent, Container, Footnote1, Headline4, Stepper, Switch, TextBox } from '@sberdevices/plasma-ui'
-import { ChangeEvent } from 'react'
+import { detectDevice } from '@sberdevices/plasma-ui'
+import { Card, CardBody, CardContent, Container, TextBox } from '@sberdevices/plasma-ui'
 import styled from 'styled-components'
 import { AppHeader } from '../components/AppHeader'
 import { usePushScreen } from '../hooks/usePushScreen'
-import { useStore } from '../hooks/useStore'
-import { actions } from '../store/store'
-import { ButtonsBottomContainer, PageContainer, StyledButton } from './TeamsPage'
+import { PageContainer, StyledButton } from './TeamsPage'
+import { useAssistant } from '../hooks/useAssistant'
 
 const StartTextBox = styled(TextBox)`
     text-align: start;
@@ -15,6 +12,18 @@ const StartTextBox = styled(TextBox)`
 
 export const RulesPage = () => {
     const pushScreen = usePushScreen()
+    const assistant = useAssistant()
+    assistant.on('data', ({ smart_app_data }: any) => {
+        if (smart_app_data) {
+            console.log(smart_app_data)
+            switch (smart_app_data) {
+                case 'NAVIGATION_BACK':
+                    pushScreen(-1)
+                    break;
+                default:
+            }
+        }
+    })
     return (
         <Container style={{marginBottom: '5rem'}}>
             <AppHeader title='Настройки' back={true} onBackCallback={() => pushScreen(-1)} />

@@ -1,6 +1,8 @@
 import { Team, RoundWord } from './../types/types';
 import { ActionsType, CharacterType, StateType } from '../types/types'
 import { v4 } from 'uuid'
+import { getRandomFromArray, getRandomFromArrayWithOldValues } from '../utils/utils';
+import { teamNames } from '../utils/teamNames';
 
 
 export const initialState = {
@@ -24,8 +26,9 @@ export const reducer = (state: StateType, action: ActionsType): StateType => {
         case 'SET_CHARACTER':
             return { ...state, character: action.payload }
         case 'ADD_TEAM':
+            const teamName = getRandomFromArrayWithOldValues(teamNames, state.teams.map(team => team.name))
             const newCommand: Team = {
-                name: action.payload,
+                name: teamName,
                 id: v4(),
                 score: 0
             }
@@ -121,7 +124,7 @@ export const reducer = (state: StateType, action: ActionsType): StateType => {
 
 export const actions = {
     setCharacter: (payload: CharacterType) => ({ type: 'SET_CHARACTER', payload } as const),
-    addTeam: (name: string) => ({ type: 'ADD_TEAM', payload: name } as const),
+    addTeam: () => ({ type: 'ADD_TEAM' } as const),
     setPlayingTeams: (teams: Team[]) => ({ type: 'SET_PLAYING_TEAMS', payload: teams } as const),
     deleteTeam: (id: string) => ({ type: 'DELETE_TEAM', payload: id } as const),
     deletePlayingTeam: (id: string) => ({ type: 'DELETE_PLAYING_TEAM', payload: id } as const),
@@ -136,7 +139,7 @@ export const actions = {
     clearRoundWords: () => ({ type: 'CLEAR_ROUND_WORD' } as const),
     setTimerLimit: (limit: number) => ({ type: 'SET_TIMER_LIMIT', payload: limit } as const),
     setWordsCountToWin: (count: number) => ({ type: 'SET_WORDS_COUNT_TO_WIN', payload: count } as const),
-    setDecreasingPoints: (payload: boolean) => ({ type: 'SET_DECREASING_POINTS', payload } as const),
+    setDecreasingPoints: (isDecreasing: boolean) => ({ type: 'SET_DECREASING_POINTS', payload: isDecreasing } as const),
     increaseRoundNumber: () => ({ type: 'INCREASE_ROUND_NUMBER' } as const),
     setRoundNumber: (round: number) => ({ type: 'SET_ROUND_NUMBER', payload: round } as const),
     setOverWordsLimit: (payload: boolean) => ({ type: 'SET_OVER_WORDS_LIMIT', payload } as const),

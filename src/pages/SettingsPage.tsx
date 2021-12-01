@@ -2,6 +2,7 @@ import { secondary } from '@sberdevices/plasma-tokens'
 import { Container, Footnote1, Headline4, Stepper, Switch } from '@sberdevices/plasma-ui'
 import { ChangeEvent } from 'react'
 import { AppHeader } from '../components/AppHeader'
+import { useAssistant } from '../hooks/useAssistant'
 import { usePushScreen } from '../hooks/usePushScreen'
 import { useStore } from '../hooks/useStore'
 import { actions } from '../store/store'
@@ -18,9 +19,25 @@ export const SettingsPage = () => {
         localStorage.setItem('timerLimit', state.timerLimit.toString())
         localStorage.setItem('isDecreasing', state.isDecreasing.toString())
         localStorage.setItem('wordsCountToWin', state.wordsCountToWin.toString())
-        
         pushScreen('teamScore')
     }
+
+    const assistant = useAssistant()
+    assistant.on('data', ({ smart_app_data }: any) => {
+        if (smart_app_data) {
+            console.log(smart_app_data)
+            switch (smart_app_data) {
+                case 'NAVIGATION_BACK':
+                    pushScreen(-1)
+                    break;
+                case 'NAVIGATION_NEXT':
+                    pushScreen('teamScore')
+                    break;
+                default:
+            }
+        }
+    })
+
     return (
         <Container>
             <AppHeader title='Настройки' back={true} onBackCallback={() => pushScreen(-1)} />

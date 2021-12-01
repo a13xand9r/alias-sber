@@ -3,6 +3,7 @@ import { secondary } from '@sberdevices/plasma-tokens'
 import { Button, Container } from '@sberdevices/plasma-ui'
 import styled from 'styled-components'
 import { AppHeader } from '../components/AppHeader'
+import { useAssistant } from '../hooks/useAssistant'
 import { usePushScreen } from '../hooks/usePushScreen'
 import { useStore } from '../hooks/useStore'
 import { actions } from '../store/store'
@@ -68,6 +69,20 @@ export const RoundResultPage = () => {
             pushScreen('victory')
         } else pushScreen('teamScore')
     }
+
+    const assistant = useAssistant()
+    assistant.on('data', ({ smart_app_data }: any) => {
+        if (smart_app_data) {
+            console.log(smart_app_data)
+            switch (smart_app_data) {
+                case 'NAVIGATION_NEXT':
+                    pushScreen('teamScore')
+                    break;
+                default:
+            }
+        }
+    })
+
     return (
         <Container>
             <AppHeader back={false} title='Результаты раунда' />
