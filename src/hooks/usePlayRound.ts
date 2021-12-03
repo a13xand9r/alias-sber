@@ -122,7 +122,7 @@ export const usePlayRound = (
     }
     useTouchHandler(elementRef, touchListenerHandler, {
         axis: 'y',
-        callDistance: 30
+        callDistance: 25
     })
 
     const rightCount = useMemo(() => {

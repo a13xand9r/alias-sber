@@ -78,7 +78,7 @@ const CenterContainer = styled.div`
 const Notification = styled(Card)`
     position: absolute;
     right: 1rem;
-    top: ${detectDevice() === 'mobile' ? '5' : '5'}rem;
+    top: ${detectDevice() === 'mobile' ? '7.1' : '5'}rem;
     width: ${detectDevice() === 'mobile' ? '11' : '14'}rem;
     text-align: center;
     padding: 0.3rem;
@@ -256,7 +256,7 @@ export const PlayPage = () => {
                                         <TextBox> Вниз — пропустить слово</TextBox>
                                     </>
                                     : <>
-                                        <TextBox>Свайп вверх — правильно</TextBox>
+                                        <TextBox>Свайп по кружочку вверх — правильно</TextBox>
                                         <TextBox>Вниз — пропустить слово</TextBox>
                                     </>
                             }
