@@ -13,10 +13,12 @@ import { RulesPage } from './pages/RulesPage';
 import { useMount } from '@sberdevices/plasma-temple';
 import { useStore } from './hooks/useStore';
 import { actions } from './store/store';
+import { useAssistant } from './hooks/useAssistant';
 
 
 const App = () => {
     const [_, dispatch] = useStore()
+    const assistant = useAssistant()
     useMount(() => {
         const timerLimit = localStorage.getItem('timerLimit')
         const isDecreasing = localStorage.getItem('isDecreasing')
@@ -27,6 +29,13 @@ const App = () => {
         if (timerLimit) dispatch(actions.setTimerLimit(Number(timerLimit)))
         if (isDecreasing === 'true') dispatch(actions.setDecreasingPoints(true))
         if (wordsCountToWin) dispatch(actions.setWordsCountToWin(Number(wordsCountToWin)))
+
+        assistant.sendAction({
+            type: 'HELLO_MESSAGE',
+            payload: {
+                isFirstLaunchOnDevice: hasAlreadyLaunch ? false : true
+            }
+        })
 
         localStorage.setItem('hasAlreadyLaunch', 'true')
     })
