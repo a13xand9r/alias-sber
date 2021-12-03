@@ -14,31 +14,35 @@ import { useMount } from '@sberdevices/plasma-temple';
 import { useStore } from './hooks/useStore';
 import { actions } from './store/store';
 import { useAssistant } from './hooks/useAssistant';
+import { useEffect } from 'react';
 
 
 const App = () => {
-    const [_, dispatch] = useStore()
+    const [{isFirstLaunchOnDevice}, dispatch] = useStore()
     const assistant = useAssistant()
     useMount(() => {
         const timerLimit = localStorage.getItem('timerLimit')
         const isDecreasing = localStorage.getItem('isDecreasing')
         const wordsCountToWin = localStorage.getItem('wordsCountToWin')
-        const hasAlreadyLaunch = localStorage.getItem('hasAlreadyLaunch')
 
-        if (hasAlreadyLaunch) dispatch(actions.setFirstLaunchOnDevice(false))
         if (timerLimit) dispatch(actions.setTimerLimit(Number(timerLimit)))
         if (isDecreasing === 'true') dispatch(actions.setDecreasingPoints(true))
         if (wordsCountToWin) dispatch(actions.setWordsCountToWin(Number(wordsCountToWin)))
-
-        assistant.sendAction({
-            type: 'HELLO_MESSAGE',
-            payload: {
-                isFirstLaunchOnDevice: hasAlreadyLaunch ? false : true
-            }
-        })
-
-        localStorage.setItem('hasAlreadyLaunch', 'true')
     })
+    useEffect(() => {
+        if (assistant && isFirstLaunchOnDevice){
+            const hasAlreadyLaunch = localStorage.getItem('hasAlreadyLaunch')
+            if (hasAlreadyLaunch) dispatch(actions.setFirstLaunchOnDevice(false))
+
+            assistant.sendAction({
+                type: 'HELLO_MESSAGE',
+                payload: {
+                    isFirstLaunchOnDevice: hasAlreadyLaunch ? false : true
+                }
+            })
+            localStorage.setItem('hasAlreadyLaunch', 'true')
+        }
+    }, [assistant])
     return (
         <Routes>
             <Route path="/play" element={<PlayPage />} />
