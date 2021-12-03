@@ -193,26 +193,32 @@ export const PlayPage = () => {
                 <div>отгадано</div>
             </UpContainer>
             <CenterContainer>
-                <ArrowButton
-                    tabIndex={0}
-                    onClick={onUpClick}
-                    style={{ marginBottom: '-1rem' }}
-                >
-                    <UpArrow color={isUpArrowColored ? 'yellow' : secondary} />
-                </ArrowButton>
+                {
+                    isSberBoxLike() &&
+                    <ArrowButton
+                        tabIndex={0}
+                        onClick={onUpClick}
+                        style={{ marginBottom: '-1rem' }}
+                    >
+                        <UpArrow color={isUpArrowColored ? 'yellow' : secondary} />
+                    </ArrowButton>
+                }
                 <Word
                     ref={elementRef}
                     draggable={true}
                 >
                     <Headline3>{currentWord}</Headline3>
                 </Word>
-                <ArrowButton
-                    tabIndex={0}
-                    onClick={onDownClick}
-                    style={{ marginTop: '-1rem' }}
-                >
-                    <DownArrow color={isDownArrowColored ? 'yellow' : secondary} />
-                </ArrowButton>
+                {
+                    isSberBoxLike() &&
+                    <ArrowButton
+                        tabIndex={0}
+                        onClick={onDownClick}
+                        style={{ marginTop: '-1rem' }}
+                    >
+                        <DownArrow color={isDownArrowColored ? 'yellow' : secondary} />
+                    </ArrowButton>
+                }
             </CenterContainer>
             <BottomContainer>
                 <Headline1>{wrongCount}</Headline1>
