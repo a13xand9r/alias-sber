@@ -62,6 +62,7 @@ export const RoundResultPage = () => {
             }
             dispatch(actions.increaseRoundNumber())
         }
+        dispatch(actions.setFirstLaunchOnDevice(false))
         dispatch(actions.setNextTeam())
     })
 

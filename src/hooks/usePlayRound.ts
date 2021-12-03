@@ -2,7 +2,7 @@ import { actions } from '../store/store';
 import { RemoteKey, useRemoteListener, useTouchHandler } from '@sberdevices/plasma-temple';
 import { useState, useEffect, useRef, useMemo } from 'react';
 import { useStore } from './useStore';
-import { getRandomFromArray, victoryCheck } from '../utils/utils';
+import { getRandomFromArray } from '../utils/utils';
 import { usePushScreen } from './usePushScreen';
 
 
@@ -13,10 +13,12 @@ export const usePlayRound = (
         finishCallback
     }: PropsType
 ) => {
-    const [{ teams, currentTeam, playingTeams, words, isDecreasing, timerLimit, roundWords, wordsCountToWin }, dispatch] = useStore()
+    const [{ currentTeam, words, isDecreasing, timerLimit, roundWords, isFirstLaunchOnDevice }, dispatch] = useStore()
     const [currentWord, setCurrentWord] = useState(getRandomFromArray(words))
 
     const [timer, setTimer] = useState<number>(timerLimit)
+    const [isShowEndNotification, setShowEndNotification] = useState(false)
+    const [isShowStartNotification, setShowStartNotification] = useState(false)
 
     const pushScreen = usePushScreen()
     const interval = useRef<NodeJS.Timeout>()
@@ -60,9 +62,25 @@ export const usePlayRound = (
             playAudio('./sounds/timer.mp3')
         }
         if (timer === 0){
-            playAudio('./sounds/gong.mp3')
+            playAudio('./sounds/alarm.mp3')
+
+            // if (isFirstLaunchOnDevice) {
+                setShowEndNotification(true)
+                setTimeout(() => {
+                    setShowEndNotification(false)
+                }, 3500)
+            // }
         }
     }, [timer])
+    useEffect(() => {
+        // if (isFirstLaunchOnDevice) {
+            setShowStartNotification(true)
+            setTimeout(() => {
+                setShowStartNotification(false)
+            }, 4000)
+        // }
+        playAudio('./sounds/gong.mp3')
+    }, [])
 
     const rightAnswer = () => {
         dispatch(actions.appendRoundWords(currentWord, true))
@@ -126,6 +144,8 @@ export const usePlayRound = (
         wrongCount,
         currentWord,
         elementRef,
+        isShowEndNotification,
+        isShowStartNotification,
         onDownClick: wrongAnswer,
         onUpClick: rightAnswer
     }

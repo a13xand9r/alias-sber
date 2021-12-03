@@ -1,6 +1,6 @@
 import { IconChevronDown, IconChevronUp } from '@sberdevices/plasma-icons'
 import { secondary } from '@sberdevices/plasma-tokens'
-import { Card, detectDevice, Headline1, Headline2, Headline3 } from '@sberdevices/plasma-ui'
+import { Card, CardBody, CardContent, detectDevice, Headline1, Headline2, Headline3, TextBox } from '@sberdevices/plasma-ui'
 import React from 'react'
 import styled from 'styled-components'
 import { usePlayRound } from '../hooks/usePlayRound'
@@ -9,7 +9,9 @@ import { useStore } from '../hooks/useStore'
 import { actions } from '../store/store'
 import { getTimerPercentage } from '../utils/utils'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { useMount } from '@sberdevices/plasma-temple'
+import { isSberBoxLike, useMount } from '@sberdevices/plasma-temple'
+import { CSSTransition } from 'react-transition-group'
+import '../transition.css'
 
 const Container = styled.div`
     height: 85vh;
@@ -73,6 +75,14 @@ const CenterContainer = styled.div`
     height: 35vh;
     margin-bottom: 2rem;
 `
+const Notification = styled(Card)`
+    position: absolute;
+    right: 1rem;
+    top: ${detectDevice() === 'mobile' ? '5' : '5'}rem;
+    width: ${detectDevice() === 'mobile' ? '11' : '14'}rem;
+    text-align: center;
+    padding: 0.3rem;
+`
 const ArrowButton = styled.div`
     border: none;
     background: none;
@@ -80,7 +90,7 @@ const ArrowButton = styled.div`
         outline: none;
     }
 `
-const Timer = styled.div<{timerPercentage: number}>`
+const Timer = styled.div<{ timerPercentage: number }>`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -166,7 +176,9 @@ export const PlayPage = () => {
         onDownClick,
         onUpClick,
         rightCount,
-        wrongCount
+        wrongCount,
+        isShowStartNotification,
+        isShowEndNotification
     } = usePlayRound({
         downCallback,
         upCallback,
@@ -189,7 +201,7 @@ export const PlayPage = () => {
                     <UpArrow color={isUpArrowColored ? 'yellow' : secondary} />
                 </ArrowButton>
                 <Word
-                    // ref={elementRef}
+                    ref={elementRef}
                     draggable={true}
                 >
                     <Headline3>{currentWord}</Headline3>
@@ -197,8 +209,8 @@ export const PlayPage = () => {
                 <ArrowButton
                     tabIndex={0}
                     onClick={onDownClick}
-                    style={{marginTop: '-1rem'}}
-                    >
+                    style={{ marginTop: '-1rem' }}
+                >
                     <DownArrow color={isDownArrowColored ? 'yellow' : secondary} />
                 </ArrowButton>
             </CenterContainer>
@@ -207,6 +219,45 @@ export const PlayPage = () => {
                 <div>пропущено</div>
                 <Timer timerPercentage={getTimerPercentage(timer, timerLimit)}>{timer}</Timer>
             </BottomContainer>
+            <CSSTransition
+                in={isShowEndNotification}
+                timeout={300}
+                classNames='notification'
+                unmountOnExit
+            >
+                <Notification>
+                    <CardBody style={{ height: '100%', alignItems: 'center' }}>
+                        <CardContent style={{ height: '100%' }} cover={false}>
+                            <TextBox>
+                                Ещё можно угадать последнее слово
+                            </TextBox>
+                        </CardContent>
+                    </CardBody></Notification>
+            </CSSTransition>
+            <CSSTransition
+                in={isShowStartNotification}
+                timeout={300}
+                classNames='notification'
+                unmountOnExit
+            >
+                <Notification>
+                    {/* <CardBody style={{ height: '100%', alignItems: 'center' }}> */}
+                        {/* <CardContent style={{ height: '100%' }} cover={false}> */}
+                            {
+                                isSberBoxLike()
+                                    ? <>
+                                        <TextBox>Вверх — правильно</TextBox>
+                                        <TextBox> Вниз — пропустить слово</TextBox>
+                                    </>
+                                    : <>
+                                        <TextBox>Свайп вверх — правильно</TextBox>
+                                        <TextBox>Вниз — пропустить слово</TextBox>
+                                    </>
+                            }
+                        {/* </CardContent> */}
+                    {/* </CardBody> */}
+                </Notification>
+            </CSSTransition>
         </Container>
     )
 }

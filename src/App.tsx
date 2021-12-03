@@ -21,12 +21,14 @@ const App = () => {
         const timerLimit = localStorage.getItem('timerLimit')
         const isDecreasing = localStorage.getItem('isDecreasing')
         const wordsCountToWin = localStorage.getItem('wordsCountToWin')
+        const hasAlreadyLaunch = localStorage.getItem('hasAlreadyLaunch')
 
+        if (hasAlreadyLaunch) dispatch(actions.setFirstLaunchOnDevice(false))
         if (timerLimit) dispatch(actions.setTimerLimit(Number(timerLimit)))
         if (isDecreasing === 'true') dispatch(actions.setDecreasingPoints(true))
         if (wordsCountToWin) dispatch(actions.setWordsCountToWin(Number(wordsCountToWin)))
 
-        console.log(process.env.NODE_ENV)
+        localStorage.setItem('hasAlreadyLaunch', 'true')
     })
     return (
         <Routes>

@@ -1,12 +1,13 @@
 import { Team, RoundWord } from './../types/types';
 import { ActionsType, CharacterType, StateType } from '../types/types'
 import { v4 } from 'uuid'
-import { getRandomFromArray, getRandomFromArrayWithOldValues } from '../utils/utils';
+import { getRandomFromArrayWithOldValues } from '../utils/utils';
 import { teamNames } from '../utils/teamNames';
 
 
 export const initialState = {
     character: 'sber' as CharacterType,
+    isFirstLaunchOnDevice: true,
     teams: [] as Team[],
     playingTeams: [] as Team[],
     words: [] as string[],
@@ -118,6 +119,8 @@ export const reducer = (state: StateType, action: ActionsType): StateType => {
             return { ...state, roundNumber: action.payload }
         case 'SET_OVER_WORDS_LIMIT':
             return { ...state, isOverWordsLimit: action.payload }
+        case 'SET_FIRST_LAUNCH_ON_DEVICE':
+            return { ...state, isFirstLaunchOnDevice: action.payload }
         default: return state
     }
 }
@@ -143,4 +146,5 @@ export const actions = {
     increaseRoundNumber: () => ({ type: 'INCREASE_ROUND_NUMBER' } as const),
     setRoundNumber: (round: number) => ({ type: 'SET_ROUND_NUMBER', payload: round } as const),
     setOverWordsLimit: (payload: boolean) => ({ type: 'SET_OVER_WORDS_LIMIT', payload } as const),
+    setFirstLaunchOnDevice: (payload: boolean) => ({ type: 'SET_FIRST_LAUNCH_ON_DEVICE', payload } as const),
 }
