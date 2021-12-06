@@ -119,6 +119,7 @@ export const SettingsPage = () => {
                     <Body1>Легко</Body1>
                     <StyledHeadlineSwitch
                         // label='Легко'
+                        tabIndex={2}
                         checked={state.wordsComplexity === 'low'}
                         defaultChecked={state.wordsComplexity === 'low'}
                         onChange={switchEasyHandler}
@@ -128,6 +129,7 @@ export const SettingsPage = () => {
                     <Body1 >Нормально</Body1>
                     <StyledHeadlineSwitch
                         // label='Нормально'
+                        tabIndex={2}
                         checked={state.wordsComplexity === 'normal'}
                         defaultChecked={state.wordsComplexity === 'normal'}
                         onChange={switchNormalHandler}
@@ -136,6 +138,7 @@ export const SettingsPage = () => {
                 <div style={{display: 'flex', marginTop: '1rem', width: '17rem'}}>
                     <Body1 >Сложно</Body1>
                     <StyledHeadlineSwitch
+                        tabIndex={2}
                         // label='Сложно'
                         checked={state.wordsComplexity === 'high'}
                         defaultChecked={state.wordsComplexity === 'high'}
@@ -145,6 +148,7 @@ export const SettingsPage = () => {
                 <div style={{display: 'flex', marginTop: '1rem', width: '17rem'}}>
                     <Headline4>Штраф за пропуск</Headline4>
                     <StyledHeadlineSwitch
+                        tabIndex={2}
                         checked={state.isDecreasing}
                         defaultChecked={state.isDecreasing}
                         onChange={switchHandler}
