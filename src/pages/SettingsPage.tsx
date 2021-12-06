@@ -1,4 +1,4 @@
-import { secondary } from '@sberdevices/plasma-tokens'
+import { headline4, secondary } from '@sberdevices/plasma-tokens'
 import { Container, Footnote1, Headline4, Stepper, Switch, Body1 } from '@sberdevices/plasma-ui'
 import { ChangeEvent, useEffect } from 'react'
 import styled from 'styled-components'
@@ -16,6 +16,22 @@ const WordsSetItemContainer = styled.div`
     width: 15rem;
     margin: 0.2rem;
     justify-content: space-between;
+    text-align: center;
+`
+const StyledSwitch = styled(Switch)`
+    display: flex;
+    justify-content: space-between;
+    width: 15rem;
+    margin: 0.2rem;
+    text-align: center;
+`
+const StyledHeadlineSwitch = styled(Switch)`
+    /* display: flex;
+    justify-content: space-between;
+    width: 15rem; */
+    max-width: 2rem;
+    margin: 0.1rem auto;
+    text-align: center;
 `
 
 export const SettingsPage = () => {
@@ -98,34 +114,37 @@ export const SettingsPage = () => {
                     showRemove={false}
                     onChange={(value) => dispatch(actions.setWordsCountToWin(value))}
                 />
-                <Headline4 style={{marginRight: '1rem'}}>Набор слов</Headline4>
-                <WordsSetItemContainer>
-                    <Body1 style={{ marginRight: '1rem' }}>Легко</Body1>
-                    <Switch
+                <Headline4 style={{margin: '0.6rem'}}>Набор слов</Headline4>
+                {/* <WordsSetItemContainer> */}
+                    {/* <Body1 style={{ marginRight: '1rem' }}>Легко</Body1> */}
+                    <StyledSwitch
+                        label='Легко'
                         checked={state.wordsComplexity === 'low'}
                         defaultChecked={state.wordsComplexity === 'low'}
                         onChange={switchEasyHandler}
                     />
-                </WordsSetItemContainer>
-                <WordsSetItemContainer>
-                    <Body1 style={{ marginRight: '1rem' }}>Нормально</Body1>
-                    <Switch
+                {/* </WordsSetItemContainer> */}
+                {/* <WordsSetItemContainer> */}
+                    {/* <Body1 style={{ marginRight: '1rem' }}>Нормально</Body1> */}
+                    <StyledSwitch
+                        label='Нормально'
                         checked={state.wordsComplexity === 'normal'}
                         defaultChecked={state.wordsComplexity === 'normal'}
                         onChange={switchNormalHandler}
                     />
-                </WordsSetItemContainer>
-                <WordsSetItemContainer>
-                    <Body1 style={{ marginRight: '1rem' }}>Сложно</Body1>
-                    <Switch
+                {/* </WordsSetItemContainer> */}
+                {/* <WordsSetItemContainer> */}
+                    {/* <Body1 style={{ marginRight: '1rem' }}>Сложно</Body1> */}
+                    <StyledSwitch
+                        label='Сложно'
                         checked={state.wordsComplexity === 'high'}
                         defaultChecked={state.wordsComplexity === 'high'}
                         onChange={switchHighHandler}
                     />
-                </WordsSetItemContainer>
-                <div style={{display: 'flex', marginTop: '1.2rem'}}>
+                {/* </WordsSetItemContainer> */}
+                <div style={{display: 'flex', marginTop: '1rem'}}>
                     <Headline4 style={{marginRight: '1rem'}}>Штраф за пропуск</Headline4>
-                    <Switch checked={state.isDecreasing} defaultChecked={state.isDecreasing} onChange={switchHandler} />
+                    <StyledHeadlineSwitch checked={state.isDecreasing} defaultChecked={state.isDecreasing} onChange={switchHandler} />
                 </div>
                 <Footnote1 style={{ margin: '0.5rem', marginBottom: '1rem', color: secondary }}>Каждое пропущенное слово отнимает одно очко</Footnote1>
                 <ButtonsBottomContainer>
