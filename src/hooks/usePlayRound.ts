@@ -13,7 +13,7 @@ export const usePlayRound = (
         finishCallback
     }: PropsType
 ) => {
-    const [{ currentTeam, words, isDecreasing, timerLimit, roundWords, isFirstLaunchOnDevice }, dispatch] = useStore()
+    const [{ currentTeam, words, isDecreasing, timerLimit, roundWords, isFirstRoundGame }, dispatch] = useStore()
     const [currentWord, setCurrentWord] = useState(getRandomFromArray(words))
 
     const [timer, setTimer] = useState<number>(timerLimit)
@@ -65,21 +65,21 @@ export const usePlayRound = (
         if (timer === 0){
             playAudio('./sounds/alarm.mp3')
 
-            // if (isFirstLaunchOnDevice) {
+            if (isFirstRoundGame) {
                 setShowEndNotification(true)
                 setTimeout(() => {
                     setShowEndNotification(false)
                 }, 3500)
-            // }
+            }
         }
     }, [timer])
     useEffect(() => {
-        // if (isFirstLaunchOnDevice) {
+        if (isFirstRoundGame) {
             setShowStartNotification(true)
             setTimeout(() => {
                 setShowStartNotification(false)
             }, 4000)
-        // }
+        }
         playAudio('./sounds/gong.mp3')
     }, [])
 
@@ -123,7 +123,7 @@ export const usePlayRound = (
     }
     useTouchHandler(elementRef, touchListenerHandler, {
         axis: 'y',
-        callDistance: 25
+        callDistance: 18
     })
 
     const rightCount = useMemo(() => {

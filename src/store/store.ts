@@ -7,6 +7,7 @@ import { teamNames } from '../utils/teamNames';
 
 export const initialState = {
     character: 'sber' as CharacterType,
+    isFirstRoundGame: true,
     isFirstLaunchOnDevice: true,
     teams: [] as Team[],
     playingTeams: [] as Team[],
@@ -129,6 +130,8 @@ export const reducer = (state: StateType, action: ActionsType): StateType => {
             return { ...state, countUsedWords: state.countUsedWords + 1 }
         case 'SET_WORDS_COMPLEXITY':
             return { ...state, wordsComplexity: action.payload }
+        case 'SET_FIRST_ROUND':
+            return { ...state, isFirstRoundGame: action.payload }
         default: return state
     }
 }
@@ -158,4 +161,5 @@ export const actions = {
     setCountUsedWords: (payload: number) => ({ type: 'SET_COUNT_USED_WORDS', payload } as const),
     incrementCountUsedWords: () => ({ type: 'INCREMENT_COUNT_USED_WORDS' } as const),
     setWordsComplexity: (payload: WordsComplexity) => ({ type: 'SET_WORDS_COMPLEXITY', payload } as const),
+    setFirsRound: (payload: boolean) => ({ type: 'SET_FIRST_ROUND', payload } as const),
 }

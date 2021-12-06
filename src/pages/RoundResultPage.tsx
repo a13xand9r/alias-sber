@@ -63,7 +63,8 @@ export const RoundResultPage = () => {
             }
             dispatch(actions.increaseRoundNumber())
         }
-        dispatch(actions.setFirstLaunchOnDevice(false))
+        // dispatch(actions.setFirstLaunchOnDevice(false))
+        dispatch(actions.setFirsRound(false))
         dispatch(actions.setNextTeam())
     })
     useMount(() => {

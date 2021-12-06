@@ -1,15 +1,12 @@
 import { IconChevronDown, IconChevronUp } from '@sberdevices/plasma-icons'
 import { secondary } from '@sberdevices/plasma-tokens'
-import { Card, CardBody, CardContent, detectDevice, Headline1, Headline2, Headline3, TextBox } from '@sberdevices/plasma-ui'
+import { Card, detectDevice, Headline1, Headline3, TextBox } from '@sberdevices/plasma-ui'
 import React from 'react'
 import styled from 'styled-components'
 import { usePlayRound } from '../hooks/usePlayRound'
-import { usePushScreen } from '../hooks/usePushScreen'
 import { useStore } from '../hooks/useStore'
-import { actions } from '../store/store'
 import { getTimerPercentage } from '../utils/utils'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { isSberBoxLike, useMount } from '@sberdevices/plasma-temple'
+import { isSberBoxLike } from '@sberdevices/plasma-temple'
 import { CSSTransition } from 'react-transition-group'
 import '../transition.css'
 
@@ -112,8 +109,8 @@ const Word = styled(Card)`
     justify-content: center;
     align-items: center;
     text-align: center;
-    height: 12rem;
-    width: 12rem;
+    height: ${detectDevice() === 'mobile' ? '15' : '12'}rem;
+    width: ${detectDevice() === 'mobile' ? '15' : '12'}rem;
     border-radius: 50%;
     /* margin: 1rem; */
     /* background-color: #8080808b; */
