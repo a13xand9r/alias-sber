@@ -115,7 +115,7 @@ export const SettingsPage = () => {
                     onChange={(value) => dispatch(actions.setWordsCountToWin(value))}
                 />
                 <Headline4 style={{margin: '0.6rem'}}>Набор слов</Headline4>
-                <WordsSetItemContainer>
+                <div style={{display: 'flex', marginTop: '1rem', width: '17rem'}}>
                     <Body1>Легко</Body1>
                     <StyledHeadlineSwitch
                         // label='Легко'
@@ -123,8 +123,8 @@ export const SettingsPage = () => {
                         defaultChecked={state.wordsComplexity === 'low'}
                         onChange={switchEasyHandler}
                     />
-                </WordsSetItemContainer>
-                <WordsSetItemContainer>
+                </div>
+                <div style={{display: 'flex', marginTop: '1rem', width: '17rem'}}>
                     <Body1 >Нормально</Body1>
                     <StyledHeadlineSwitch
                         // label='Нормально'
@@ -132,8 +132,8 @@ export const SettingsPage = () => {
                         defaultChecked={state.wordsComplexity === 'normal'}
                         onChange={switchNormalHandler}
                     />
-                </WordsSetItemContainer>
-                <WordsSetItemContainer>
+                </div>
+                <div style={{display: 'flex', marginTop: '1rem', width: '17rem'}}>
                     <Body1 >Сложно</Body1>
                     <StyledHeadlineSwitch
                         // label='Сложно'
@@ -141,15 +141,15 @@ export const SettingsPage = () => {
                         defaultChecked={state.wordsComplexity === 'high'}
                         onChange={switchHighHandler}
                     />
-                </WordsSetItemContainer>
-                <WordsSetItemContainer style={{marginTop: '1rem'}}>
+                </div>
+                <div style={{display: 'flex', marginTop: '1rem', width: '17rem'}}>
                     <Headline4>Штраф за пропуск</Headline4>
                     <StyledHeadlineSwitch
                         checked={state.isDecreasing}
                         defaultChecked={state.isDecreasing}
                         onChange={switchHandler}
                     />
-                </WordsSetItemContainer>
+                </div>
                 <Footnote1 style={{ margin: '0.5rem', marginBottom: '1rem', color: secondary }}>Каждое пропущенное слово отнимает одно очко</Footnote1>
                 <ButtonsBottomContainer>
                     <StyledButton view='primary' onClick={onContinueClick}>Далее</StyledButton>
