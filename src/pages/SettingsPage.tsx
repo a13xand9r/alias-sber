@@ -38,18 +38,22 @@ export const SettingsPage = () => {
     const [state, dispatch] = useStore()
     const pushScreen = usePushScreen()
     const switchHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault()
         console.log(e.target.checked)
         dispatch(actions.setDecreasingPoints(e.target.checked))
     }
     const switchEasyHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault()
         console.log(e.target.checked)
         dispatch(actions.setWordsComplexity('low'))
     }
     const switchNormalHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault()
         console.log(e.target.checked)
         dispatch(actions.setWordsComplexity('normal'))
     }
     const switchHighHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault()
         console.log(e.target.checked)
         dispatch(actions.setWordsComplexity('high'))
     }
@@ -69,7 +73,7 @@ export const SettingsPage = () => {
 
     const assistant = useAssistant()
     useEffect(() => {
-        if (assistant){
+        if (assistant) {
             assistant.on('data', ({ smart_app_data }: any) => {
                 if (smart_app_data) {
                     // console.log(smart_app_data)
@@ -91,7 +95,7 @@ export const SettingsPage = () => {
         <Container>
             <AppHeader title='Настройки' back={true} onBackCallback={() => pushScreen(-1)} />
             <PageContainer>
-            <Headline4>Время раунда</Headline4>
+                <Headline4>Время раунда</Headline4>
                 <div style={{ marginBottom: '2rem' }}>
                     <Stepper
                         style={{ margin: '0.5rem' }}
@@ -114,8 +118,8 @@ export const SettingsPage = () => {
                     showRemove={false}
                     onChange={(value) => dispatch(actions.setWordsCountToWin(value))}
                 />
-                <Headline4 style={{margin: '0.6rem'}}>Набор слов</Headline4>
-                <div tabIndex={1} style={{display: 'flex', marginTop: '1rem', width: '17rem'}}>
+                <Headline4 style={{ margin: '0.6rem' }}>Набор слов</Headline4>
+                <div tabIndex={1} style={{ marginTop: '1rem', width: '17rem' }}>
                     {/* <Body1>Легко</Body1> */}
                     {/* <Switch
                         label='Легко'
@@ -124,14 +128,17 @@ export const SettingsPage = () => {
                         defaultChecked={state.wordsComplexity === 'low'}
                         onChange={switchEasyHandler}
                     /> */}
-                     <Radiobox
-                    label='Легко'
-                    checked={state.wordsComplexity === 'low'}
-                    defaultChecked={state.wordsComplexity === 'low'}
-                    onChange={switchEasyHandler}
-                />
+                    <Radiobox
+                        value='low'
+                        name='low'
+                        tabIndex={-1}
+                        label='Легко'
+                        checked={state.wordsComplexity === 'low'}
+                        defaultChecked={state.wordsComplexity === 'low'}
+                        onChange={switchEasyHandler}
+                    />
                 </div>
-                <div tabIndex={1} style={{display: 'flex', marginTop: '1rem', width: '17rem'}}>
+                <div tabIndex={1} style={{ marginTop: '1rem', width: '17rem' }}>
                     {/* <Body1 >Нормально</Body1> */}
                     {/* <Switch
                         label='Нормально'
@@ -141,21 +148,27 @@ export const SettingsPage = () => {
                         onChange={switchNormalHandler}
                     /> */}
                     <Radiobox
-                    label='Нормально'
-                    checked={state.wordsComplexity === 'normal'}
-                    defaultChecked={state.wordsComplexity === 'normal'}
-                    onChange={switchNormalHandler}
-                />
+                        value='normal'
+                        name='normal'
+                        tabIndex={-1}
+                        label='Нормально'
+                        checked={state.wordsComplexity === 'normal'}
+                        defaultChecked={state.wordsComplexity === 'normal'}
+                        onChange={switchNormalHandler}
+                    />
                 </div>
-                <div tabIndex={1} style={{display: 'flex', marginTop: '1rem', width: '17rem'}}>
-                {/* <Body1 >Сложно</Body1> */}
-                <Radiobox
-                    label="Сложно"
-                    onChange={switchHighHandler}
-                    defaultChecked={state.wordsComplexity === 'high'}
-                    checked={state.wordsComplexity === 'high'}
-                />
-                {/* <Switch
+                <div tabIndex={1} style={{ marginTop: '1rem', width: '17rem' }}>
+                    {/* <Body1 >Сложно</Body1> */}
+                    <Radiobox
+                        value='high'
+                        name='high'
+                        tabIndex={-1}
+                        label="Сложно"
+                        onChange={switchHighHandler}
+                        defaultChecked={state.wordsComplexity === 'high'}
+                        checked={state.wordsComplexity === 'high'}
+                    />
+                    {/* <Switch
                     tabIndex={2}
                         label='Сложно'
                         checked={state.wordsComplexity === 'high'}
@@ -163,7 +176,7 @@ export const SettingsPage = () => {
                         onChange={switchHighHandler}
                     /> */}
                 </div>
-                <div tabIndex={1} style={{display: 'flex', marginTop: '1.5rem', width: '17rem'}}>
+                <div tabIndex={1} style={{ display: 'flex', marginTop: '1.5rem', width: '17rem' }}>
                     <Headline4>Штраф за пропуск</Headline4>
                     <StyledHeadlineSwitch
                         tabIndex={2}
