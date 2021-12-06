@@ -232,13 +232,14 @@ export const PlayPage = () => {
                 unmountOnExit
             >
                 <Notification>
-                    <CardBody style={{ height: '100%', alignItems: 'center' }}>
-                        <CardContent style={{ height: '100%' }} cover={false}>
+                    {/* <CardBody style={{ height: '100%', alignItems: 'center' }}>
+                        <CardContent style={{ height: '100%' }} cover={false}> */}
                             <TextBox>
                                 Ещё можно угадать последнее слово
                             </TextBox>
-                        </CardContent>
-                    </CardBody></Notification>
+                        {/* </CardContent>
+                    </CardBody> */}
+                </Notification>
             </CSSTransition>
             <CSSTransition
                 in={isShowStartNotification}

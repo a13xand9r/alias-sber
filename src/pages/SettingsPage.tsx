@@ -8,10 +8,10 @@ import { useAssistant } from '../hooks/useAssistant'
 import { usePushScreen } from '../hooks/usePushScreen'
 import { useStore } from '../hooks/useStore'
 import { actions } from '../store/store'
-import { wordsAssemblyLimit } from '../utils/utils'
+import { wordsSetLimit } from '../utils/utils'
 import { ButtonsBottomContainer, PageContainer, StyledButton } from './TeamsPage'
 
-const WordsAssemblyItemContainer = styled.div`
+const WordsSetItemContainer = styled.div`
     display: flex;
     width: 15rem;
     margin: 0.2rem;
@@ -38,7 +38,7 @@ export const SettingsPage = () => {
         dispatch(actions.setWordsComplexity('high'))
     }
     useEffect(() => {
-        getWords(state.wordsComplexity, wordsAssemblyLimit).then(words => {
+        getWords(state.wordsComplexity, wordsSetLimit).then(words => {
             dispatch(actions.setWords(words))
         })
     }, [state.wordsComplexity])
@@ -99,30 +99,30 @@ export const SettingsPage = () => {
                     onChange={(value) => dispatch(actions.setWordsCountToWin(value))}
                 />
                 <Headline4 style={{marginRight: '1rem'}}>Набор слов</Headline4>
-                <WordsAssemblyItemContainer>
+                <WordsSetItemContainer>
                     <Body1 style={{ marginRight: '1rem' }}>Легко</Body1>
                     <Switch
                         checked={state.wordsComplexity === 'low'}
                         defaultChecked={state.wordsComplexity === 'low'}
                         onChange={switchEasyHandler}
                     />
-                </WordsAssemblyItemContainer>
-                <WordsAssemblyItemContainer>
+                </WordsSetItemContainer>
+                <WordsSetItemContainer>
                     <Body1 style={{ marginRight: '1rem' }}>Нормально</Body1>
                     <Switch
                         checked={state.wordsComplexity === 'normal'}
                         defaultChecked={state.wordsComplexity === 'normal'}
                         onChange={switchNormalHandler}
                     />
-                </WordsAssemblyItemContainer>
-                <WordsAssemblyItemContainer>
+                </WordsSetItemContainer>
+                <WordsSetItemContainer>
                     <Body1 style={{ marginRight: '1rem' }}>Сложно</Body1>
                     <Switch
                         checked={state.wordsComplexity === 'high'}
                         defaultChecked={state.wordsComplexity === 'high'}
                         onChange={switchHighHandler}
                     />
-                </WordsAssemblyItemContainer>
+                </WordsSetItemContainer>
                 <div style={{display: 'flex', marginTop: '1.2rem'}}>
                     <Headline4 style={{marginRight: '1rem'}}>Штраф за пропуск</Headline4>
                     <Switch checked={state.isDecreasing} defaultChecked={state.isDecreasing} onChange={switchHandler} />

@@ -9,7 +9,7 @@ import { useAssistant } from '../hooks/useAssistant'
 import { usePushScreen } from '../hooks/usePushScreen'
 import { useStore } from '../hooks/useStore'
 import { actions } from '../store/store'
-import { victoryCheck, wordsAssemblyLimit } from '../utils/utils'
+import { victoryCheck, wordsSetLimit } from '../utils/utils'
 import { ButtonsBottomContainer, StyledButton } from './TeamsPage'
 
 
@@ -67,8 +67,8 @@ export const RoundResultPage = () => {
         dispatch(actions.setNextTeam())
     })
     useMount(() => {
-        if (countUsedWords > 20){
-            getWords(wordsComplexity, wordsAssemblyLimit).then(words => {
+        if (countUsedWords > wordsSetLimit / 2){
+            getWords(wordsComplexity, wordsSetLimit).then(words => {
                 dispatch(actions.setWords(words))
                 dispatch(actions.setCountUsedWords(0))
             })

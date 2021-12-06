@@ -1,6 +1,6 @@
 import { Team } from '../types/types'
 
-export const wordsAssemblyLimit = 600
+export const wordsSetLimit = 400
 
 export function getRandomFromArray<T>(arr: T[]): T {
     return arr[Math.floor(arr.length * Math.random())]
@@ -13,7 +13,7 @@ export function getRandomFromArrayWithOldValues<T>(arr: T[], oldValues: T[]): T 
         originalItem = arr[Math.floor(arr.length * Math.random())]
         if (!oldValues.includes(originalItem)) {
             isOriginal = true
-            return originalItem
+        return originalItem
         }
     }
     return arr[Math.floor(arr.length * Math.random())]

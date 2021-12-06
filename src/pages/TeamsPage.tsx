@@ -9,7 +9,7 @@ import { useAssistant } from '../hooks/useAssistant'
 import { usePushScreen } from '../hooks/usePushScreen'
 import { useStore } from '../hooks/useStore'
 import { actions } from '../store/store'
-import { wordsAssemblyLimit } from '../utils/utils'
+import { wordsSetLimit } from '../utils/utils'
 
 export const PageContainer = styled.div`
     display: flex;
@@ -78,7 +78,7 @@ export const TeamsPage = () => {
         }
     })
     useMount(() => {
-        getWords(wordsComplexity, wordsAssemblyLimit).then(words => {
+        getWords(wordsComplexity, wordsSetLimit).then(words => {
             dispatch(actions.setWords(words))
         })
     })
