@@ -13,7 +13,7 @@ import { ButtonsBottomContainer, PageContainer, StyledButton } from './TeamsPage
 
 const WordsSetItemContainer = styled.div`
     display: flex;
-    width: 15rem;
+    width: 17rem;
     margin: 0.2rem;
     justify-content: space-between;
     text-align: center;
@@ -115,34 +115,34 @@ export const SettingsPage = () => {
                     onChange={(value) => dispatch(actions.setWordsCountToWin(value))}
                 />
                 <Headline4 style={{margin: '0.6rem'}}>Набор слов</Headline4>
-                {/* <WordsSetItemContainer> */}
-                    {/* <Body1 style={{ marginRight: '1rem' }}>Легко</Body1> */}
+                <WordsSetItemContainer>
+                    <Body1>Легко</Body1>
                     <StyledSwitch
-                        label='Легко'
+                        // label='Легко'
                         checked={state.wordsComplexity === 'low'}
                         defaultChecked={state.wordsComplexity === 'low'}
                         onChange={switchEasyHandler}
                     />
-                {/* </WordsSetItemContainer> */}
-                {/* <WordsSetItemContainer> */}
-                    {/* <Body1 style={{ marginRight: '1rem' }}>Нормально</Body1> */}
+                </WordsSetItemContainer>
+                <WordsSetItemContainer>
+                    <Body1 >Нормально</Body1>
                     <StyledSwitch
-                        label='Нормально'
+                        // label='Нормально'
                         checked={state.wordsComplexity === 'normal'}
                         defaultChecked={state.wordsComplexity === 'normal'}
                         onChange={switchNormalHandler}
                     />
-                {/* </WordsSetItemContainer> */}
-                {/* <WordsSetItemContainer> */}
-                    {/* <Body1 style={{ marginRight: '1rem' }}>Сложно</Body1> */}
+                </WordsSetItemContainer>
+                <WordsSetItemContainer>
+                    <Body1 >Сложно</Body1>
                     <StyledSwitch
-                        label='Сложно'
+                        // label='Сложно'
                         checked={state.wordsComplexity === 'high'}
                         defaultChecked={state.wordsComplexity === 'high'}
                         onChange={switchHighHandler}
                     />
-                {/* </WordsSetItemContainer> */}
-                <div style={{display: 'flex', marginTop: '1rem'}}>
+                </WordsSetItemContainer>
+                <div style={{display: 'flex', marginTop: '1rem', width: '17rem'}}>
                     <Headline4 style={{marginRight: '1rem'}}>Штраф за пропуск</Headline4>
                     <StyledHeadlineSwitch checked={state.isDecreasing} defaultChecked={state.isDecreasing} onChange={switchHandler} />
                 </div>
