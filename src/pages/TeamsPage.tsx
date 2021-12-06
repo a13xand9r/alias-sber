@@ -9,6 +9,7 @@ import { useAssistant } from '../hooks/useAssistant'
 import { usePushScreen } from '../hooks/usePushScreen'
 import { useStore } from '../hooks/useStore'
 import { actions } from '../store/store'
+import { wordsAssemblyLimit } from '../utils/utils'
 
 export const PageContainer = styled.div`
     display: flex;
@@ -67,7 +68,7 @@ const DeleteButton = styled(Button)`
 `
 
 export const TeamsPage = () => {
-    const [{ teams }, dispatch] = useStore()
+    const [{ teams, wordsComplexity }, dispatch] = useStore()
     const pushScreen = usePushScreen()
 
     useMount(() => {
@@ -77,7 +78,7 @@ export const TeamsPage = () => {
         }
     })
     useMount(() => {
-        getWords().then(words => {
+        getWords(wordsComplexity, wordsAssemblyLimit).then(words => {
             dispatch(actions.setWords(words))
         })
     })

@@ -1,4 +1,4 @@
-import { Team, RoundWord } from './../types/types';
+import { Team, RoundWord, WordsComplexity } from './../types/types';
 import { ActionsType, CharacterType, StateType } from '../types/types'
 import { v4 } from 'uuid'
 import { getRandomFromArrayWithOldValues } from '../utils/utils';
@@ -15,10 +15,12 @@ export const initialState = {
     winningTeam: null as null | Team,
     isDecreasing: false,
     timerLimit: 60,
+    wordsComplexity: 'low' as WordsComplexity,
     isOverWordsLimit: false,
     wordsCountToWin: 30,
     roundWords: [] as RoundWord[],
-    roundNumber: 1
+    roundNumber: 1,
+    countUsedWords: 0
 }
 
 export const reducer = (state: StateType, action: ActionsType): StateType => {
@@ -121,6 +123,12 @@ export const reducer = (state: StateType, action: ActionsType): StateType => {
             return { ...state, isOverWordsLimit: action.payload }
         case 'SET_FIRST_LAUNCH_ON_DEVICE':
             return { ...state, isFirstLaunchOnDevice: action.payload }
+        case 'SET_COUNT_USED_WORDS':
+            return { ...state, countUsedWords: action.payload }
+        case 'INCREMENT_COUNT_USED_WORDS':
+            return { ...state, countUsedWords: state.countUsedWords + 1 }
+        case 'SET_WORDS_COMPLEXITY':
+            return { ...state, wordsComplexity: action.payload }
         default: return state
     }
 }
@@ -147,4 +155,7 @@ export const actions = {
     setRoundNumber: (round: number) => ({ type: 'SET_ROUND_NUMBER', payload: round } as const),
     setOverWordsLimit: (payload: boolean) => ({ type: 'SET_OVER_WORDS_LIMIT', payload } as const),
     setFirstLaunchOnDevice: (payload: boolean) => ({ type: 'SET_FIRST_LAUNCH_ON_DEVICE', payload } as const),
+    setCountUsedWords: (payload: number) => ({ type: 'SET_COUNT_USED_WORDS', payload } as const),
+    incrementCountUsedWords: () => ({ type: 'INCREMENT_COUNT_USED_WORDS' } as const),
+    setWordsComplexity: (payload: WordsComplexity) => ({ type: 'SET_WORDS_COMPLEXITY', payload } as const),
 }

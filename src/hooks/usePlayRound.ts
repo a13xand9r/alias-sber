@@ -48,6 +48,7 @@ export const usePlayRound = (
     }
 
     const answer = () => {
+        dispatch(actions.incrementCountUsedWords())
         setCurrentWord(getRandomFromArray(words))
         if (timer === 0) {
             finishAnswer()

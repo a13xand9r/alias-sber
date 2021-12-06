@@ -1,5 +1,7 @@
 import { Team } from '../types/types'
 
+export const wordsAssemblyLimit = 600
+
 export function getRandomFromArray<T>(arr: T[]): T {
     return arr[Math.floor(arr.length * Math.random())]
 }

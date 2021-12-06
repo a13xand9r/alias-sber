@@ -76,6 +76,8 @@ export type ActionsType = InferActionType<typeof actions>
 
 export type CharacterType = 'sber' | 'joy' | 'eva'
 
+export type WordsComplexity = 'low' | 'normal' | 'high'
+
 export type Team = {
     name: string
     id: string

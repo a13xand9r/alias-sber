@@ -3,12 +3,13 @@ import { secondary } from '@sberdevices/plasma-tokens'
 import { Button, Container } from '@sberdevices/plasma-ui'
 import { useEffect } from 'react'
 import styled from 'styled-components'
+import { getWords } from '../api/words'
 import { AppHeader } from '../components/AppHeader'
 import { useAssistant } from '../hooks/useAssistant'
 import { usePushScreen } from '../hooks/usePushScreen'
 import { useStore } from '../hooks/useStore'
 import { actions } from '../store/store'
-import { victoryCheck } from '../utils/utils'
+import { victoryCheck, wordsAssemblyLimit } from '../utils/utils'
 import { ButtonsBottomContainer, StyledButton } from './TeamsPage'
 
 
@@ -43,7 +44,7 @@ const LikeImg = styled.img`
 `
 
 export const RoundResultPage = () => {
-    const [{ roundWords, winningTeam, playingTeams, wordsCountToWin, currentTeam }, dispatch] = useStore()
+    const [{ roundWords, winningTeam, playingTeams, wordsCountToWin, currentTeam, countUsedWords, wordsComplexity }, dispatch] = useStore()
     const pushScreen = usePushScreen()
 
     useMount(() => {
@@ -64,6 +65,14 @@ export const RoundResultPage = () => {
         }
         dispatch(actions.setFirstLaunchOnDevice(false))
         dispatch(actions.setNextTeam())
+    })
+    useMount(() => {
+        if (countUsedWords > 20){
+            getWords(wordsComplexity, wordsAssemblyLimit).then(words => {
+                dispatch(actions.setWords(words))
+                dispatch(actions.setCountUsedWords(0))
+            })
+        }
     })
 
     const continueHandler = () => {

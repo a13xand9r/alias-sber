@@ -15,6 +15,7 @@ import { useStore } from './hooks/useStore';
 import { actions } from './store/store';
 import { useAssistant } from './hooks/useAssistant';
 import { useEffect } from 'react';
+import { WordsComplexity } from './types/types';
 
 
 const App = () => {
@@ -24,10 +25,12 @@ const App = () => {
         const timerLimit = localStorage.getItem('timerLimit')
         const isDecreasing = localStorage.getItem('isDecreasing')
         const wordsCountToWin = localStorage.getItem('wordsCountToWin')
+        const wordsComplexity = localStorage.getItem('wordsComplexity') as WordsComplexity | undefined
 
         if (timerLimit) dispatch(actions.setTimerLimit(Number(timerLimit)))
         if (isDecreasing === 'true') dispatch(actions.setDecreasingPoints(true))
         if (wordsCountToWin) dispatch(actions.setWordsCountToWin(Number(wordsCountToWin)))
+        if (wordsComplexity) dispatch(actions.setWordsComplexity(wordsComplexity))
     })
     useEffect(() => {
         if (assistant && isFirstLaunchOnDevice){
