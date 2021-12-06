@@ -115,7 +115,7 @@ export const SettingsPage = () => {
                     onChange={(value) => dispatch(actions.setWordsCountToWin(value))}
                 />
                 <Headline4 style={{margin: '0.6rem'}}>Набор слов</Headline4>
-                {/* <div style={{display: 'flex', marginTop: '1rem', width: '17rem'}}> */}
+                <div tabIndex={1} style={{display: 'flex', marginTop: '1rem', width: '17rem'}}>
                     {/* <Body1>Легко</Body1> */}
                     {/* <Switch
                         label='Легко'
@@ -124,8 +124,14 @@ export const SettingsPage = () => {
                         defaultChecked={state.wordsComplexity === 'low'}
                         onChange={switchEasyHandler}
                     /> */}
-                {/* </div> */}
-                {/* <div style={{display: 'flex', marginTop: '1rem', width: '17rem'}}> */}
+                     <Radiobox
+                    label='Легко'
+                    checked={state.wordsComplexity === 'low'}
+                    defaultChecked={state.wordsComplexity === 'low'}
+                    onChange={switchEasyHandler}
+                />
+                </div>
+                <div tabIndex={1} style={{display: 'flex', marginTop: '1rem', width: '17rem'}}>
                     {/* <Body1 >Нормально</Body1> */}
                     {/* <Switch
                         label='Нормально'
@@ -134,21 +140,15 @@ export const SettingsPage = () => {
                         defaultChecked={state.wordsComplexity === 'normal'}
                         onChange={switchNormalHandler}
                     /> */}
-                {/* </div> */}
-                {/* <div style={{display: 'flex', marginTop: '1rem', width: '17rem'}}> */}
-                {/* <Body1 >Сложно</Body1> */}
-                <Radiobox
-                    label='Легко'
-                    checked={state.wordsComplexity === 'low'}
-                    defaultChecked={state.wordsComplexity === 'low'}
-                    onChange={switchEasyHandler}
-                />
-                <Radiobox
+                    <Radiobox
                     label='Нормально'
                     checked={state.wordsComplexity === 'normal'}
                     defaultChecked={state.wordsComplexity === 'normal'}
                     onChange={switchNormalHandler}
                 />
+                </div>
+                <div tabIndex={1} style={{display: 'flex', marginTop: '1rem', width: '17rem'}}>
+                {/* <Body1 >Сложно</Body1> */}
                 <Radiobox
                     label="Сложно"
                     onChange={switchHighHandler}
@@ -162,8 +162,8 @@ export const SettingsPage = () => {
                         defaultChecked={state.wordsComplexity === 'high'}
                         onChange={switchHighHandler}
                     /> */}
-                {/* </div> */}
-                <div style={{display: 'flex', marginTop: '1.5rem', width: '17rem'}}>
+                </div>
+                <div tabIndex={1} style={{display: 'flex', marginTop: '1.5rem', width: '17rem'}}>
                     <Headline4>Штраф за пропуск</Headline4>
                     <StyledHeadlineSwitch
                         tabIndex={2}
