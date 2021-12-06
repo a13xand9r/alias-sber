@@ -14,22 +14,22 @@ import { ButtonsBottomContainer, PageContainer, StyledButton } from './TeamsPage
 const WordsSetItemContainer = styled.div`
     display: flex;
     width: 17rem;
-    margin: 0.2rem;
-    justify-content: space-between;
-    text-align: center;
+    margin-top: 0.2rem;
+    /* justify-content: space-between;
+    text-align: center; */
 `
 const StyledSwitch = styled(Switch)`
     display: flex;
     justify-content: space-between;
-    width: 15rem;
+    max-width: 7rem;
     margin: 0.2rem;
     text-align: center;
 `
 const StyledHeadlineSwitch = styled(Switch)`
     /* display: flex;
-    justify-content: space-between;
-    width: 15rem; */
-    max-width: 2rem;
+    justify-content: space-between; */
+    width: 15rem;
+    /* max-width: 2rem; */
     margin: 0.1rem auto;
     text-align: center;
 `
@@ -117,7 +117,7 @@ export const SettingsPage = () => {
                 <Headline4 style={{margin: '0.6rem'}}>Набор слов</Headline4>
                 <WordsSetItemContainer>
                     <Body1>Легко</Body1>
-                    <StyledSwitch
+                    <StyledHeadlineSwitch
                         // label='Легко'
                         checked={state.wordsComplexity === 'low'}
                         defaultChecked={state.wordsComplexity === 'low'}
@@ -126,7 +126,7 @@ export const SettingsPage = () => {
                 </WordsSetItemContainer>
                 <WordsSetItemContainer>
                     <Body1 >Нормально</Body1>
-                    <StyledSwitch
+                    <StyledHeadlineSwitch
                         // label='Нормально'
                         checked={state.wordsComplexity === 'normal'}
                         defaultChecked={state.wordsComplexity === 'normal'}
@@ -135,17 +135,21 @@ export const SettingsPage = () => {
                 </WordsSetItemContainer>
                 <WordsSetItemContainer>
                     <Body1 >Сложно</Body1>
-                    <StyledSwitch
+                    <StyledHeadlineSwitch
                         // label='Сложно'
                         checked={state.wordsComplexity === 'high'}
                         defaultChecked={state.wordsComplexity === 'high'}
                         onChange={switchHighHandler}
                     />
                 </WordsSetItemContainer>
-                <div style={{display: 'flex', marginTop: '1rem', width: '17rem'}}>
-                    <Headline4 style={{marginRight: '1rem'}}>Штраф за пропуск</Headline4>
-                    <StyledHeadlineSwitch checked={state.isDecreasing} defaultChecked={state.isDecreasing} onChange={switchHandler} />
-                </div>
+                <WordsSetItemContainer style={{marginTop: '1rem'}}>
+                    <Headline4>Штраф за пропуск</Headline4>
+                    <StyledHeadlineSwitch
+                        checked={state.isDecreasing}
+                        defaultChecked={state.isDecreasing}
+                        onChange={switchHandler}
+                    />
+                </WordsSetItemContainer>
                 <Footnote1 style={{ margin: '0.5rem', marginBottom: '1rem', color: secondary }}>Каждое пропущенное слово отнимает одно очко</Footnote1>
                 <ButtonsBottomContainer>
                     <StyledButton view='primary' onClick={onContinueClick}>Далее</StyledButton>
