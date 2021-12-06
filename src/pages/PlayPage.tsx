@@ -7,6 +7,7 @@ import { usePlayRound } from '../hooks/usePlayRound'
 import { useStore } from '../hooks/useStore'
 import { getTimerPercentage } from '../utils/utils'
 import { isSberBoxLike } from '@sberdevices/plasma-temple'
+import { Swiper, SwiperSlide } from 'swiper/react'
 import { CSSTransition } from 'react-transition-group'
 import '../transition.css'
 
@@ -103,7 +104,7 @@ const TeamName = styled.div`
     margin-top: ${detectDevice() === 'mobile' ? '2' : '0.5'}rem;
     /* margin: ${detectDevice() === 'sberPortal' ? '0' : '0.5'}rem; */
 `
-const Word = styled(Card)`
+const Word = styled(Card)<{isRight: boolean, isWrong: boolean}>`
     display: flex;
     padding: 1rem;
     justify-content: center;
@@ -112,8 +113,14 @@ const Word = styled(Card)`
     height: ${detectDevice() === 'mobile' ? '15' : '12'}rem;
     width: ${detectDevice() === 'mobile' ? '15' : '12'}rem;
     border-radius: 50%;
-    /* margin: 1rem; */
-    /* background-color: #8080808b; */
+    transition: all 0.3s;
+    box-shadow: 0px 0px 51px -31px rgba(0, 0, 0, 0.48);
+    ${props => {
+        let shadow = `box-shadow: 0px 0px 51px -31px rgba(0, 0, 0, 0.48);`
+        if (props.isRight) shadow = `box-shadow: 0px 36px 94px -29px rgba(35, 255, 32, 0.48) inset;`
+        if (props.isWrong) shadow = `box-shadow: 0px -46px 94px -29px rgba(193, 179, 0, 0.48) inset;`
+        return shadow
+    }}
 `
 const UpArrow = styled(IconChevronUp)`
     width: 5rem;
@@ -122,6 +129,14 @@ const UpArrow = styled(IconChevronUp)`
 const DownArrow = styled(IconChevronDown)`
     width: 5rem;
     height: 5rem;
+`
+const RightAnswerLight = styled.div`
+    /* position: absolute;
+    top: 0;
+    z-index: -1;
+    width: 100%;
+    height: 5rem;
+    background-color: aqua; */
 `
 
 export const PlayPage = () => {
@@ -175,7 +190,8 @@ export const PlayPage = () => {
         rightCount,
         wrongCount,
         isShowStartNotification,
-        isShowEndNotification
+        isShowEndNotification,
+        swipeWordEnd
     } = usePlayRound({
         downCallback,
         upCallback,
@@ -200,12 +216,34 @@ export const PlayPage = () => {
                         <UpArrow color={isUpArrowColored ? 'yellow' : secondary} />
                     </ArrowButton>
                 }
-                <Word
-                    ref={elementRef}
-                    draggable={true}
-                >
-                    <Headline3>{currentWord}</Headline3>
-                </Word>
+                {
+                    isSberBoxLike()
+                        ? <Word
+                            // ref={elementRef}
+                            isRight={isUpArrowColored}
+                            isWrong={isDownArrowColored}
+                        >
+                            <RightAnswerLight></RightAnswerLight>
+                            <Headline3>{currentWord}</Headline3>
+                        </Word>
+                        : <Swiper
+                            spaceBetween={50}
+                            direction='vertical'
+                            slidesPerView={1}
+                            onTouchEnd={(swiper) => swipeWordEnd(swiper.touches.diff)}
+                        >
+                            <SwiperSlide>
+                                <Word
+                                    // ref={elementRef}
+                                    isRight={isUpArrowColored}
+                                    isWrong={isDownArrowColored}
+                                >
+                                    <RightAnswerLight></RightAnswerLight>
+                                    <Headline3>{currentWord}</Headline3>
+                                </Word>
+                            </SwiperSlide>
+                        </Swiper>
+                }
                 {
                     isSberBoxLike() &&
                     <ArrowButton
@@ -229,13 +267,9 @@ export const PlayPage = () => {
                 unmountOnExit
             >
                 <Notification>
-                    {/* <CardBody style={{ height: '100%', alignItems: 'center' }}>
-                        <CardContent style={{ height: '100%' }} cover={false}> */}
-                            <TextBox>
-                                Ещё можно угадать последнее слово
-                            </TextBox>
-                        {/* </CardContent>
-                    </CardBody> */}
+                    <TextBox>
+                        Ещё можно угадать последнее слово
+                    </TextBox>
                 </Notification>
             </CSSTransition>
             <CSSTransition
@@ -245,21 +279,17 @@ export const PlayPage = () => {
                 unmountOnExit
             >
                 <Notification>
-                    {/* <CardBody style={{ height: '100%', alignItems: 'center' }}> */}
-                        {/* <CardContent style={{ height: '100%' }} cover={false}> */}
-                            {
-                                isSberBoxLike()
-                                    ? <>
-                                        <TextBox>Вверх — правильно</TextBox>
-                                        <TextBox> Вниз — пропустить слово</TextBox>
-                                    </>
-                                    : <>
-                                        <TextBox>Свайп по кружочку вверх — правильно</TextBox>
-                                        <TextBox>Вниз — пропустить слово</TextBox>
-                                    </>
-                            }
-                        {/* </CardContent> */}
-                    {/* </CardBody> */}
+                    {
+                        isSberBoxLike()
+                            ? <>
+                                <TextBox>Вверх — правильно</TextBox>
+                                <TextBox> Вниз — пропустить слово</TextBox>
+                            </>
+                            : <>
+                                <TextBox>Свайп по кружочку вверх — правильно</TextBox>
+                                <TextBox>Вниз — пропустить слово</TextBox>
+                            </>
+                    }
                 </Notification>
             </CSSTransition>
         </Container>

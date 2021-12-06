@@ -54,8 +54,9 @@ export const usePlayRound = (
             finishAnswer()
         }
     }
-    const playAudio = (src: string) => {
+    const playAudio = (src: string, volume = 1) => {
         let audio = new Audio(src)
+        audio.volume = volume
         audio.play()
     }
     useEffect(() => {
@@ -80,7 +81,7 @@ export const usePlayRound = (
                 setShowStartNotification(false)
             }, 4000)
         }
-        playAudio('./sounds/gong.mp3')
+        playAudio('./sounds/gong.mp3', 0.5)
     }, [])
 
     const rightAnswer = () => {
@@ -110,21 +111,21 @@ export const usePlayRound = (
     useRemoteListener(remoteListenerHandler, {})
 
     const elementRef = useRef<HTMLDivElement>(null)
-    const touchListenerHandler = (dir: number) => {
-        switch (dir) {
-            case -1:
-                wrongAnswer()
-                break;
-            case 1:
-                rightAnswer()
-                break;
-            default:
-        }
-    }
-    useTouchHandler(elementRef, touchListenerHandler, {
-        axis: 'y',
-        callDistance: 18
-    })
+    // const touchListenerHandler = (dir: number) => {
+    //     switch (dir) {
+    //         case -1:
+    //             wrongAnswer()
+    //             break;
+    //         case 1:
+    //             rightAnswer()
+    //             break;
+    //         default:
+    //     }
+    // }
+    // useTouchHandler(elementRef, touchListenerHandler, {
+    //     axis: 'y',
+    //     callDistance: 18
+    // })
 
     const rightCount = useMemo(() => {
         return roundWords.reduce((acc, item) => {
@@ -139,12 +140,41 @@ export const usePlayRound = (
         }, 0)
     }, [roundWords])
 
+    const [isUpperRightAnswer, setUpperRightAnswer] = useState(false)
+    const [isLoweWrongAnswer, setLoweWrongAnswer] = useState(false)
+
+    useEffect(() => {
+        console.log('rightAnswer', isUpperRightAnswer)
+        if (isUpperRightAnswer){
+            rightAnswer()
+            setUpperRightAnswer(false)
+        }
+    }, [isUpperRightAnswer])
+
+    useEffect(() => {
+        if (isLoweWrongAnswer){
+            wrongAnswer()
+            setLoweWrongAnswer(false)
+        }
+    }, [isLoweWrongAnswer])
+
+    const swipeWordEnd = (diff: number) => {
+        console.log(diff)
+        if (!isUpperRightAnswer && diff < -120){
+            setUpperRightAnswer(true)
+        }
+        if (!isLoweWrongAnswer && diff > 120){
+            setLoweWrongAnswer(true)
+        }
+    }
+
     return {
         timer,
         rightCount,
         wrongCount,
         currentWord,
         elementRef,
+        swipeWordEnd,
         isShowEndNotification,
         isShowStartNotification,
         onDownClick: wrongAnswer,
