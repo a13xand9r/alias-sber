@@ -1,5 +1,5 @@
 import { headline4, secondary } from '@sberdevices/plasma-tokens'
-import { Container, Footnote1, Headline4, Stepper, Switch, Body1 } from '@sberdevices/plasma-ui'
+import { Container, Footnote1, Headline4, Stepper, Switch, Body1, Radiobox } from '@sberdevices/plasma-ui'
 import { ChangeEvent, useEffect } from 'react'
 import styled from 'styled-components'
 import { getWords } from '../api/words'
@@ -117,35 +117,53 @@ export const SettingsPage = () => {
                 <Headline4 style={{margin: '0.6rem'}}>Набор слов</Headline4>
                 {/* <div style={{display: 'flex', marginTop: '1rem', width: '17rem'}}> */}
                     {/* <Body1>Легко</Body1> */}
-                    <Switch
+                    {/* <Switch
                         label='Легко'
                         tabIndex={2}
                         checked={state.wordsComplexity === 'low'}
                         defaultChecked={state.wordsComplexity === 'low'}
                         onChange={switchEasyHandler}
-                    />
+                    /> */}
                 {/* </div> */}
                 {/* <div style={{display: 'flex', marginTop: '1rem', width: '17rem'}}> */}
                     {/* <Body1 >Нормально</Body1> */}
-                    <Switch
+                    {/* <Switch
                         label='Нормально'
                         tabIndex={2}
                         checked={state.wordsComplexity === 'normal'}
                         defaultChecked={state.wordsComplexity === 'normal'}
                         onChange={switchNormalHandler}
-                    />
+                    /> */}
                 {/* </div> */}
                 {/* <div style={{display: 'flex', marginTop: '1rem', width: '17rem'}}> */}
-                    {/* <Body1 >Сложно</Body1> */}
-                    <Switch
-                        tabIndex={2}
+                {/* <Body1 >Сложно</Body1> */}
+                <Radiobox
+                    label='Легко'
+                    checked={state.wordsComplexity === 'low'}
+                    defaultChecked={state.wordsComplexity === 'low'}
+                    onChange={switchEasyHandler}
+                />
+                <Radiobox
+                    label='Нормально'
+                    checked={state.wordsComplexity === 'normal'}
+                    defaultChecked={state.wordsComplexity === 'normal'}
+                    onChange={switchNormalHandler}
+                />
+                <Radiobox
+                    label="Сложно"
+                    onChange={switchHighHandler}
+                    defaultChecked={state.wordsComplexity === 'high'}
+                    checked={state.wordsComplexity === 'high'}
+                />
+                {/* <Switch
+                    tabIndex={2}
                         label='Сложно'
                         checked={state.wordsComplexity === 'high'}
                         defaultChecked={state.wordsComplexity === 'high'}
                         onChange={switchHighHandler}
-                    />
+                    /> */}
                 {/* </div> */}
-                <div style={{display: 'flex', marginTop: '1rem', width: '17rem'}}>
+                <div style={{display: 'flex', marginTop: '1.5rem', width: '17rem'}}>
                     <Headline4>Штраф за пропуск</Headline4>
                     <StyledHeadlineSwitch
                         tabIndex={2}
