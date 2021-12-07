@@ -7,7 +7,7 @@ export const initializeAssistant = (getState: () => any) => {
     if (process.env.NODE_ENV === 'development') {
         return createSmartappDebugger({
             token: process.env.REACT_APP_ASSISTANT_TOKEN ?? '',
-            initPhrase: 'Запусти alias',
+            initPhrase: 'Запусти alias онлайн',
             getState
         })
     }
