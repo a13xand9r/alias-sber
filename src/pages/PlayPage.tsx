@@ -233,7 +233,7 @@ export const PlayPage = () => {
                             slidesPerView={1}
                             onTouchEnd={(swiper) => swipeWordEnd(swiper.touches.diff)}
                         >
-                            <SwiperSlide style={{margin: '0', marginTop: isSberBoxLike() ? '0' : '2rem'}}>
+                            <SwiperSlide style={{margin: '0', marginTop: detectDevice() === 'mobile' ? '4rem' : '0'}}>
                                 <Word
                                     // ref={elementRef}
                                     isRight={isUpArrowColored}
