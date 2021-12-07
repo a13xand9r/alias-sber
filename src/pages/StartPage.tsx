@@ -1,3 +1,4 @@
+import { isSberBoxLike } from '@sberdevices/plasma-temple'
 import { Card } from '@sberdevices/plasma-ui'
 import { useEffect } from 'react'
 import styled from 'styled-components'
@@ -22,9 +23,9 @@ const UpContainer = styled(Card)`
     left: 0;
     top: -2rem;
     /* background-image: url('./img/background-city.jpeg'); */
-    background-image: url('./img/back.jpg');
+    background-image: ${isSberBoxLike() ? `url('./img/00ff8346261277.586d57aa98e78.png')` : `url('./img/background-city.jpeg')`};
     background-size: 100%;
-    background-position-y: 40%;
+    background-position-y: 80%;
     width: 100%;
     overflow: hidden;
     padding-top: 2rem;
