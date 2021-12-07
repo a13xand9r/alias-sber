@@ -27,11 +27,11 @@ const WordsSetItemContainer = styled.div`
   &:focus-visible {
     outline: none;
     border: ${accent} solid 2px;
-    border-radius: 10px;
+    border-radius: 15px;
   }
   &:focus {
     border: ${accent} solid 2px;
-    border-radius: 10px;
+    border-radius: 15px;
     outline: none;
   }
     /* justify-content: space-between;

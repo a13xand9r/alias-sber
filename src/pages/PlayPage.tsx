@@ -76,7 +76,7 @@ const CenterContainer = styled.div`
 const Notification = styled(Card)`
     position: absolute;
     right: 1rem;
-    top: ${detectDevice() === 'mobile' ? '7.1' : '5'}rem;
+    top: ${detectDevice() === 'mobile' ? '7.5' : '5'}rem;
     width: ${detectDevice() === 'mobile' ? '11' : '14'}rem;
     text-align: center;
     padding: 0.3rem;
@@ -233,7 +233,7 @@ export const PlayPage = () => {
                             slidesPerView={1}
                             onTouchEnd={(swiper) => swipeWordEnd(swiper.touches.diff)}
                         >
-                            <SwiperSlide style={{margin: '0'}}>
+                            <SwiperSlide style={{margin: '0', marginTop: isSberBoxLike() ? '0' : '2rem'}}>
                                 <Word
                                     // ref={elementRef}
                                     isRight={isUpArrowColored}
