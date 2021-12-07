@@ -1,7 +1,7 @@
 import { isSberBoxLike } from '@sberdevices/plasma-temple'
-import { accent, headline4, secondary } from '@sberdevices/plasma-tokens'
-import { Container, Footnote1, Headline4, Stepper, Switch, Body1, Radiobox } from '@sberdevices/plasma-ui'
-import React, { ChangeEvent, FormEvent, MouseEventHandler, useEffect } from 'react'
+import { accent, secondary } from '@sberdevices/plasma-tokens'
+import { Container, Footnote1, Headline4, Stepper, Switch, Radiobox } from '@sberdevices/plasma-ui'
+import React, { ChangeEvent, FormEvent, useEffect } from 'react'
 import styled from 'styled-components'
 import { getWords } from '../api/words'
 import { AppHeader } from '../components/AppHeader'
@@ -37,40 +37,6 @@ const WordsSetItemContainer = styled.div`
     /* justify-content: space-between;
     text-align: center; */
 `
-const StyledSwitch = styled(Switch)`
-    display: flex;
-    justify-content: space-between;
-    max-width: 7rem;
-    margin: 0.2rem;
-    text-align: center;
-`
-const StyledHeadlineSwitch = styled(Switch)`
-    /* display: flex;
-    justify-content: space-between; */
-    width: 15rem;
-    /* max-width: 2rem; */
-    margin: 0.1rem auto;
-    text-align: center;
-`
-
-const StyledRadiobox = styled(Radiobox)`
-  box-sizing: border-box;
-  &:focus-visible {
-    outline: ${accent} solid 1px;
-  }
-  &:focus {
-    outline: ${accent} solid 1px;
-  }
-`;
-const StyledDiv = styled.div`
-  box-sizing: border-box;
-  &:focus-visible {
-    outline: ${accent} solid 1px;
-  }
-  &:focus {
-    outline: ${accent} solid 1px;
-  }
-`;
 
 export const SettingsPage = () => {
     const [state, dispatch] = useStore()
@@ -102,8 +68,7 @@ export const SettingsPage = () => {
         })
     }, [state.wordsComplexity])
 
-    const onContinueClick = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
+    const onContinueClick = () => {
         localStorage.setItem('timerLimit', state.timerLimit.toString())
         localStorage.setItem('isDecreasing', state.isDecreasing.toString())
         localStorage.setItem('wordsCountToWin', state.wordsCountToWin.toString())
@@ -134,7 +99,6 @@ export const SettingsPage = () => {
     return (
         <Container>
             <AppHeader title='Настройки' back={true} onBackCallback={() => pushScreen(-1)} />
-            <form onSubmit={onContinueClick}>
                 <PageContainer>
                     <Headline4>Время раунда</Headline4>
                     <div style={{ marginBottom: '2rem' }}>
@@ -225,10 +189,9 @@ export const SettingsPage = () => {
                     </WordsSetItemContainer>
                     <Footnote1 style={{ margin: '0.5rem', marginBottom: '1rem', color: secondary }}>Каждое пропущенное слово отнимает одно очко</Footnote1>
                     <ButtonsBottomContainer>
-                        <StyledButton type='submit' view='primary'>Далее</StyledButton>
+                        <StyledButton onClick={onContinueClick} view='primary'>Далее</StyledButton>
                     </ButtonsBottomContainer>
                 </PageContainer>
-            </form>
         </Container>
     )
 }
