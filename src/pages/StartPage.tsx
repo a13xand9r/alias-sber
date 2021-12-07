@@ -1,10 +1,9 @@
 import { isSberBoxLike } from '@sberdevices/plasma-temple'
-import { Card } from '@sberdevices/plasma-ui'
+import { Card, detectDevice } from '@sberdevices/plasma-ui'
 import { useEffect } from 'react'
 import styled from 'styled-components'
 import { useAssistant } from '../hooks/useAssistant'
 import { usePushScreen } from '../hooks/usePushScreen'
-import { useStore } from '../hooks/useStore'
 import { StyledButton } from './TeamsPage'
 
 const Container = styled.div`
@@ -19,6 +18,7 @@ const Container = styled.div`
 const UpContainer = styled(Card)`
     margin-bottom: 1rem;
     height: 40vh;
+    height: ${detectDevice() === 'mobile' ? `37` : `40`}vh;
     position: relative;
     left: 0;
     top: -2rem;
