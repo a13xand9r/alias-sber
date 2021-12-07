@@ -130,7 +130,7 @@ export const reducer = (state: StateType, action: ActionsType): StateType => {
         case 'INCREMENT_COUNT_USED_WORDS':
             return { ...state, countUsedWords: state.countUsedWords + 1 }
         case 'SET_WORDS_COMPLEXITY':
-            return { ...state, wordsComplexity: action.payload }
+            return { ...state, wordsComplexity: action.payload.complexity }
         case 'SET_FIRST_ROUND':
             return { ...state, isFirstRoundGame: action.payload }
         default: return state
@@ -161,6 +161,6 @@ export const actions = {
     setFirstLaunchOnDevice: (payload: boolean) => ({ type: 'SET_FIRST_LAUNCH_ON_DEVICE', payload } as const),
     setCountUsedWords: (payload: number) => ({ type: 'SET_COUNT_USED_WORDS', payload } as const),
     incrementCountUsedWords: () => ({ type: 'INCREMENT_COUNT_USED_WORDS' } as const),
-    setWordsComplexity: (payload: WordsComplexity) => ({ type: 'SET_WORDS_COMPLEXITY', payload } as const),
+    setWordsComplexity: (complexity: WordsComplexity) => ({ type: 'SET_WORDS_COMPLEXITY', payload: {complexity} } as const),
     setFirsRound: (payload: boolean) => ({ type: 'SET_FIRST_ROUND', payload } as const),
 }
