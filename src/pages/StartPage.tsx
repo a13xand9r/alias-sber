@@ -21,7 +21,8 @@ const UpContainer = styled(Card)`
     position: relative;
     left: 0;
     top: -2rem;
-    background-image: url('./img/background-city.jpeg');
+    /* background-image: url('./img/background-city.jpeg'); */
+    background-image: url('./img/back.jpg');
     background-size: 100%;
     background-position-y: 40%;
     width: 100%;

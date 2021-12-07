@@ -227,13 +227,13 @@ export const PlayPage = () => {
                             <Headline3>{currentWord}</Headline3>
                         </Word>
                         : <Swiper
-                            style={{margin: '0'}}
+                            style={{margin: '0', marginTop: detectDevice() === 'mobile' ? '4rem' : '0'}}
                             spaceBetween={50}
                             direction='vertical'
                             slidesPerView={1}
                             onTouchEnd={(swiper) => swipeWordEnd(swiper.touches.diff)}
                         >
-                            <SwiperSlide style={{margin: '0', marginTop: detectDevice() === 'mobile' ? '4rem' : '0'}}>
+                            <SwiperSlide>
                                 <Word
                                     // ref={elementRef}
                                     isRight={isUpArrowColored}
