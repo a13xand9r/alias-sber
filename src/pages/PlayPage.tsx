@@ -227,12 +227,13 @@ export const PlayPage = () => {
                             <Headline3>{currentWord}</Headline3>
                         </Word>
                         : <Swiper
+                            style={{margin: '0'}}
                             spaceBetween={50}
                             direction='vertical'
                             slidesPerView={1}
                             onTouchEnd={(swiper) => swipeWordEnd(swiper.touches.diff)}
                         >
-                            <SwiperSlide>
+                            <SwiperSlide style={{margin: '0'}}>
                                 <Word
                                     // ref={elementRef}
                                     isRight={isUpArrowColored}

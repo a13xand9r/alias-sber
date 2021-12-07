@@ -115,6 +115,7 @@ export const reducer = (state: StateType, action: ActionsType): StateType => {
         case 'SET_WORDS_COUNT_TO_WIN':
             return { ...state, wordsCountToWin: action.payload.count }
         case 'SET_DECREASING_POINTS':
+            console.log('isDecreasing', action.payload.isDecreasing)
             return { ...state, isDecreasing: action.payload.isDecreasing }
         case 'INCREASE_ROUND_NUMBER':
             return { ...state, roundNumber: state.roundNumber + 1 }

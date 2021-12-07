@@ -1,6 +1,7 @@
+import { isSberBoxLike } from '@sberdevices/plasma-temple'
 import { accent, headline4, secondary } from '@sberdevices/plasma-tokens'
 import { Container, Footnote1, Headline4, Stepper, Switch, Body1, Radiobox } from '@sberdevices/plasma-ui'
-import { ChangeEvent, FormEvent, useEffect } from 'react'
+import React, { ChangeEvent, FormEvent, MouseEventHandler, useEffect } from 'react'
 import styled from 'styled-components'
 import { getWords } from '../api/words'
 import { AppHeader } from '../components/AppHeader'
@@ -14,11 +15,15 @@ import { ButtonsBottomContainer, PageContainer, StyledButton } from './TeamsPage
 const WordsSetItemContainer = styled.div`
     display: flex;
     width: 8rem;
-    margin-top: 1rem;
+    /* margin-top: 1rem; */
     text-align: start;
     justify-content: flex-start;
-    align-items: flex-start;
+    align-items: center;
+    height: 2rem;
+    padding: 10px;
+    min-width: 10rem;
     box-sizing: border-box;
+    /* border: #0000001 solid 2px; */
   &:focus-visible {
     outline: none;
     border: ${accent} solid 2px;
@@ -71,9 +76,16 @@ export const SettingsPage = () => {
     const [state, dispatch] = useStore()
     const pushScreen = usePushScreen()
     const switchHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        e.preventDefault()
+        //@ts-ignore
+        e.stopPropagation()
         console.log(e.target.checked)
-        dispatch(actions.setDecreasingPoints(e.target.checked))
+        // dispatch(actions.setDecreasingPoints(e.target.checked))
+        dispatch(actions.setDecreasingPoints(!state.isDecreasing))
+    }
+    const switchContainerHandler = (e: React.MouseEvent<HTMLElement>) => {
+        e.stopPropagation()
+        console.log('container handler')
+        dispatch(actions.setDecreasingPoints(!state.isDecreasing))
     }
     const switchEasyHandler = () => {
         dispatch(actions.setWordsComplexity('low'))
@@ -148,15 +160,12 @@ export const SettingsPage = () => {
                         onChange={(value) => dispatch(actions.setWordsCountToWin(value))}
                     />
                     <Headline4 style={{ margin: '0.6rem' }}>Набор слов</Headline4>
-                    <WordsSetItemContainer onClick={switchEasyHandler} tabIndex={1}>
-                        {/* <Body1>Легко</Body1> */}
-                        {/* <Switch
-                        label='Легко'
-                        tabIndex={2}
-                        checked={state.wordsComplexity === 'low'}
-                        defaultChecked={state.wordsComplexity === 'low'}
-                        onChange={switchEasyHandler}
-                    /> */}
+                    <WordsSetItemContainer
+                        onClick={() => {
+                            if (isSberBoxLike()) switchEasyHandler()
+                        }}
+                        tabIndex={isSberBoxLike() ? 1 : 0}
+                    >
                         <Radiobox
                             value='low'
                             name='low'
@@ -167,15 +176,12 @@ export const SettingsPage = () => {
                             onChange={switchEasyHandler}
                         />
                     </WordsSetItemContainer>
-                    <WordsSetItemContainer onClick={switchNormalHandler} tabIndex={1}>
-                        {/* <Body1 >Нормально</Body1> */}
-                        {/* <Switch
-                        label='Нормально'
-                        tabIndex={2}
-                        checked={state.wordsComplexity === 'normal'}
-                        defaultChecked={state.wordsComplexity === 'normal'}
-                        onChange={switchNormalHandler}
-                    /> */}
+                    <WordsSetItemContainer
+                        onClick={() => {
+                            if (isSberBoxLike()) switchNormalHandler()
+                        }}
+                        tabIndex={isSberBoxLike() ? 1 : 0}
+                    >
                         <Radiobox
                             value='normal'
                             name='normal'
@@ -186,8 +192,12 @@ export const SettingsPage = () => {
                             onChange={switchNormalHandler}
                         />
                     </WordsSetItemContainer>
-                    <WordsSetItemContainer onClick={switchHighHandler} tabIndex={1}>
-                        {/* <Body1 >Сложно</Body1> */}
+                    <WordsSetItemContainer
+                        onClick={() => {
+                            if (isSberBoxLike()) switchHighHandler()
+                        }}
+                        tabIndex={isSberBoxLike() ? 1 : 0}
+                    >
                         <Radiobox
                             value='high'
                             name='high'
@@ -197,23 +207,22 @@ export const SettingsPage = () => {
                             defaultChecked={state.wordsComplexity === 'high'}
                             checked={state.wordsComplexity === 'high'}
                         />
-                        {/* <Switch
-                    tabIndex={2}
-                        label='Сложно'
-                        checked={state.wordsComplexity === 'high'}
-                        defaultChecked={state.wordsComplexity === 'high'}
-                        onChange={switchHighHandler}
-                    /> */}
                     </WordsSetItemContainer>
-                    <div style={{ display: 'flex', marginTop: '1.5rem', width: '17rem' }}>
-                        <Headline4 style={{marginRight: '1rem'}}>Штраф за пропуск</Headline4>
+                    <WordsSetItemContainer
+                        tabIndex={isSberBoxLike() ? 1 : 0}
+                        onClick={(e) => {
+                            if (isSberBoxLike()) switchContainerHandler(e)
+                        }}
+                        style={{ marginTop: '1.5rem', width: '18rem', height: '3rem' }}
+                    >
+                        <Headline4 style={{ marginRight: '1rem' }}>Штраф за пропуск</Headline4>
                         <Switch
-                            tabIndex={2}
+                            tabIndex={-1}
                             checked={state.isDecreasing}
                             defaultChecked={state.isDecreasing}
                             onChange={switchHandler}
                         />
-                    </div>
+                    </WordsSetItemContainer>
                     <Footnote1 style={{ margin: '0.5rem', marginBottom: '1rem', color: secondary }}>Каждое пропущенное слово отнимает одно очко</Footnote1>
                     <ButtonsBottomContainer>
                         <StyledButton type='submit' view='primary'>Далее</StyledButton>
