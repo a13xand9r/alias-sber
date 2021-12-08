@@ -110,23 +110,6 @@ export const usePlayRound = (
     }
     useRemoteListener(remoteListenerHandler, {})
 
-    const elementRef = useRef<HTMLDivElement>(null)
-    // const touchListenerHandler = (dir: number) => {
-    //     switch (dir) {
-    //         case -1:
-    //             wrongAnswer()
-    //             break;
-    //         case 1:
-    //             rightAnswer()
-    //             break;
-    //         default:
-    //     }
-    // }
-    // useTouchHandler(elementRef, touchListenerHandler, {
-    //     axis: 'y',
-    //     callDistance: 18
-    // })
-
     const rightCount = useMemo(() => {
         return roundWords.reduce((acc, item) => {
             if (item.isAnswered) return acc + 1
@@ -173,7 +156,6 @@ export const usePlayRound = (
         rightCount,
         wrongCount,
         currentWord,
-        elementRef,
         swipeWordEnd,
         isShowEndNotification,
         isShowStartNotification,

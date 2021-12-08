@@ -33,7 +33,7 @@ export const RulesPage = () => {
 
     return (
         <Container style={{marginBottom: '5rem'}}>
-            <AppHeader title='Настройки' back={true} onBackCallback={() => pushScreen(-1)} />
+            <AppHeader title='Правила' back={true} onBackCallback={() => pushScreen(-1)} />
             <PageContainer>
                 <Card>
                     <CardBody style={{ height: '100%', alignItems: 'center' }}>

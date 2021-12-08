@@ -130,14 +130,6 @@ const DownArrow = styled(IconChevronDown)`
     width: 5rem;
     height: 5rem;
 `
-const RightAnswerLight = styled.div`
-    /* position: absolute;
-    top: 0;
-    z-index: -1;
-    width: 100%;
-    height: 5rem;
-    background-color: aqua; */
-`
 
 export const PlayPage = () => {
 
@@ -163,28 +155,12 @@ export const PlayPage = () => {
         }
     }, [isDownArrowColored])
 
-    React.useEffect(() => {
-        // const element = document.getElementById('mySwipe');
-        // window.mySwipe = new Swiper(element, {
-        //     startSlide: 0,
-        //     auto: 3000,
-        //     draggable: false,
-        //     autoRestart: false,
-        //     continuous: true,
-        //     disableScroll: true,
-        //     stopPropagation: true,
-        //     callback: function (index, element) { },
-        //     transitionEnd: function (index, element) { }
-        // });
-    }, [])
-
     const finishCallback = () => {
     }
 
     const {
         timer,
         currentWord,
-        elementRef,
         onDownClick,
         onUpClick,
         rightCount,
@@ -223,7 +199,6 @@ export const PlayPage = () => {
                             isRight={isUpArrowColored}
                             isWrong={isDownArrowColored}
                         >
-                            <RightAnswerLight></RightAnswerLight>
                             <Headline3>{currentWord}</Headline3>
                         </Word>
                         : <Swiper
@@ -239,7 +214,6 @@ export const PlayPage = () => {
                                     isRight={isUpArrowColored}
                                     isWrong={isDownArrowColored}
                                 >
-                                    <RightAnswerLight></RightAnswerLight>
                                     <Headline3>{currentWord}</Headline3>
                                 </Word>
                             </SwiperSlide>
