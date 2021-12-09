@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { AppHeader } from '../components/AppHeader'
 import { usePushScreen } from '../hooks/usePushScreen'
 import { useStore } from '../hooks/useStore'
+import { actions } from '../store/store'
 import { StyledButton } from './TeamsPage'
 
 // const Container = styled.div`
@@ -78,12 +79,14 @@ const TeamItem = styled.div`
 
 export const VictoryPage = () => {
     const pushScreen = usePushScreen()
-    const [state] = useStore()
+    const [state, dispatch] = useStore()
 
     useMount(() => {
         let audio = new Audio('./sounds/sm-sounds-game-win-1.mp3')
         console.log(audio)
         audio.play()
+
+        dispatch(actions.setFirsRound(true))
     })
     return (
         <Container>

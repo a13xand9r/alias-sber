@@ -4,6 +4,8 @@ import { useEffect } from 'react'
 import styled from 'styled-components'
 import { useAssistant } from '../hooks/useAssistant'
 import { usePushScreen } from '../hooks/usePushScreen'
+import { useStore } from '../hooks/useStore'
+import { actions } from '../store/store'
 import { StyledButton } from './TeamsPage'
 
 const Container = styled.div`
@@ -39,6 +41,7 @@ const UpContainer = styled(Card)`
 
 export const StartPage = () => {
     const pushScreen = usePushScreen()
+    const [{isFirstRoundGame}, dispatch] = useStore()
 
     const assistant = useAssistant()
     useEffect(() => {
@@ -59,11 +62,19 @@ export const StartPage = () => {
             })
         }
     }, [assistant])
+    const onNewGameClick = () => {
+        dispatch(actions.resetGame())
+        pushScreen('teams')
+    }
     return (
         <div>
             <UpContainer></UpContainer>
             <Container>
-                <StyledButton view='primary' onClick={() => pushScreen('teams')}>Новая игра</StyledButton>
+                {
+                    !isFirstRoundGame
+                    && <StyledButton view='primary' onClick={() => pushScreen('teamScore')}>Продолжить</StyledButton>
+                }
+                <StyledButton view='primary' onClick={onNewGameClick}>Новая игра</StyledButton>
                 <StyledButton onClick={() => pushScreen('rules')}>Правила</StyledButton>
             </Container>
         </div>

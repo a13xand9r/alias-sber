@@ -29,6 +29,19 @@ export const reducer = (state: StateType, action: ActionsType): StateType => {
     switch (action.type) {
         case 'SET_CHARACTER':
             return { ...state, character: action.payload }
+        case 'RESET_GAME':
+            return {
+                ...state,
+                teams: [],
+                playingTeams: [],
+                isFirstRoundGame: true,
+                currentTeam: null,
+                winningTeam: null,
+                isOverWordsLimit: false,
+                roundWords: [],
+                roundNumber: 1,
+                countUsedWords: 0
+            }
         case 'ADD_TEAM':
             const teamName = getRandomFromArrayWithOldValues(teamNames, state.teams.map(team => team.name))
             const newCommand: Team = {
@@ -163,4 +176,5 @@ export const actions = {
     incrementCountUsedWords: () => ({ type: 'INCREMENT_COUNT_USED_WORDS' } as const),
     setWordsComplexity: (complexity: WordsComplexity) => ({ type: 'SET_WORDS_COMPLEXITY', payload: {complexity} } as const),
     setFirsRound: (payload: boolean) => ({ type: 'SET_FIRST_ROUND', payload } as const),
+    resetGame: () => ({ type: 'RESET_GAME' } as const),
 }
