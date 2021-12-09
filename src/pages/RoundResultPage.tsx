@@ -75,6 +75,11 @@ export const RoundResultPage = () => {
             })
         }
     })
+    useEffect(() => {
+        return () => {
+            dispatch(actions.clearRoundWords())
+        }
+    }, [])
 
     const continueHandler = () => {
         if (winningTeam) {

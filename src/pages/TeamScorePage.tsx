@@ -70,7 +70,6 @@ export const TeamScorePage = () => {
     })
 
     const playHandler = () => {
-        dispatch(actions.clearRoundWords())
         pushScreen('play')
     }
 
