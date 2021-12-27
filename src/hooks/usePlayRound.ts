@@ -35,6 +35,9 @@ export const usePlayRound = (
     useEffect(() => {
         if (timer === 0) clearInterval(interval.current as NodeJS.Timeout)
     }, [timer])
+    useEffect(() => {
+        dispatch(actions.clearRoundWords())
+    }, [])
 
     const finishAnswer = () => {
         dispatch(actions.incrementTeamScore(currentTeam?.id as string))
