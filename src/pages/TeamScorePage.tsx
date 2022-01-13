@@ -6,7 +6,6 @@ import styled from 'styled-components'
 import { useAssistant } from '../hooks/useAssistant'
 import { usePushScreen } from '../hooks/usePushScreen'
 import { useStore } from '../hooks/useStore'
-import { actions } from '../store/store'
 import { ButtonsBottomContainer, PageContainer, StyledButton } from './TeamsPage'
 
 
@@ -49,7 +48,6 @@ export const CenterContainer = styled.div`
     display: flex;
     flex-direction: column;
     margin: 0.2rem;
-    /* height: 30vh; */
     justify-content: center;
 `
 export const TeamsContainer = styled.div`
@@ -62,7 +60,7 @@ export const StyledImg = styled.img`
 `
 
 export const TeamScorePage = () => {
-    const [state, dispatch] = useStore()
+    const [state] = useStore()
     const pushScreen = usePushScreen()
 
     useMount(() => {
@@ -78,7 +76,6 @@ export const TeamScorePage = () => {
         if (assistant){
             assistant.on('data', ({ smart_app_data }: any) => {
                 if (smart_app_data) {
-                    // console.log(smart_app_data)
                     switch (smart_app_data.type) {
                         case 'NAVIGATION_PLAY':
                             pushScreen('play')

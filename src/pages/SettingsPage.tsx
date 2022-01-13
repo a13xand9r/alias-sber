@@ -1,7 +1,7 @@
 import { isSberBoxLike } from '@sberdevices/plasma-temple'
 import { accent, secondary } from '@sberdevices/plasma-tokens'
 import { Container, Footnote1, Headline4, Stepper, Switch, Radiobox } from '@sberdevices/plasma-ui'
-import React, { ChangeEvent, FormEvent, useEffect } from 'react'
+import React, { ChangeEvent, useEffect } from 'react'
 import styled from 'styled-components'
 import { getWords } from '../api/words'
 import { AppHeader } from '../components/AppHeader'
@@ -15,7 +15,6 @@ import { ButtonsBottomContainer, PageContainer, StyledButton } from './TeamsPage
 const WordsSetItemContainer = styled.div`
     display: flex;
     width: 8rem;
-    /* margin-top: 1rem; */
     text-align: start;
     justify-content: flex-start;
     align-items: center;
@@ -23,7 +22,6 @@ const WordsSetItemContainer = styled.div`
     padding: 10px;
     min-width: 10rem;
     box-sizing: border-box;
-    /* border: #0000001 solid 2px; */
   &:focus-visible {
     outline: none;
     border: ${accent} solid 2px;
@@ -34,18 +32,14 @@ const WordsSetItemContainer = styled.div`
     border-radius: 15px;
     outline: none;
   }
-    /* justify-content: space-between;
-    text-align: center; */
 `
 
 export const SettingsPage = () => {
     const [state, dispatch] = useStore()
     const pushScreen = usePushScreen()
     const switchHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        //@ts-ignore
         e.stopPropagation()
         console.log(e.target.checked)
-        // dispatch(actions.setDecreasingPoints(e.target.checked))
         dispatch(actions.setDecreasingPoints(!state.isDecreasing))
     }
     const switchContainerHandler = (e: React.MouseEvent<HTMLElement>) => {
@@ -81,7 +75,6 @@ export const SettingsPage = () => {
         if (assistant) {
             assistant.on('data', ({ smart_app_data }: any) => {
                 if (smart_app_data) {
-                    // console.log(smart_app_data)
                     switch (smart_app_data.type) {
                         case 'NAVIGATION_BACK':
                             pushScreen(-1)

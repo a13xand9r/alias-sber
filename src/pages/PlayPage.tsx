@@ -28,16 +28,13 @@ const UpContainer = styled(Card)`
     left: 0;
     display: flex;
     flex-direction: column;
-    /* flex-direction: ${detectDevice() === 'sberPortal' ? 'row' : 'column'}; */
     align-items: center;
     justify-content: center;
     margin-bottom: 1rem;
     background-color: #ff7b00e3;
     height: ${detectDevice() === 'mobile' ? '7' : '5'}rem;
     overflow: hidden;
-    /* height: 4rem; */
     width: 100vw;
-    /* padding-top: 20px; */
     padding-bottom: 20px;
     border-radius: 0% 0% 60% 60%;
     @media (max-width: 700px){
@@ -51,13 +48,9 @@ const BottomContainer = styled(Card)`
     align-items: center;
     position: absolute;
     bottom: 0;
-    /* margin-bottom: 1rem; */
-    /* background-color: #696969ea; */
     width: 100vw;
     height: ${detectDevice() === 'mobile' ? '15' : '10.5'}rem;
-    /* height: 35vh; */
     padding-top: ${detectDevice() === 'mobile' ? '20' : '9'}px;
-    /* padding-bottom: ${detectDevice() === 'mobile' ? '14' : '8'}rem; */
     overflow: hidden;
     border-radius: 60% 60% 0% 0%;
     @media (max-width: 700px){
@@ -102,7 +95,6 @@ const Timer = styled.div<{ timerPercentage: number }>`
 const TeamName = styled.div`
     color: ${secondary};
     margin-top: ${detectDevice() === 'mobile' ? '2' : '0.5'}rem;
-    /* margin: ${detectDevice() === 'sberPortal' ? '0' : '0.5'}rem; */
 `
 const Word = styled(Card)<{isRight: boolean, isWrong: boolean}>`
     display: flex;
@@ -195,7 +187,6 @@ export const PlayPage = () => {
                 {
                     isSberBoxLike()
                         ? <Word
-                            // ref={elementRef}
                             isRight={isUpArrowColored}
                             isWrong={isDownArrowColored}
                         >
@@ -210,7 +201,6 @@ export const PlayPage = () => {
                         >
                             <SwiperSlide>
                                 <Word
-                                    // ref={elementRef}
                                     isRight={isUpArrowColored}
                                     isWrong={isDownArrowColored}
                                 >

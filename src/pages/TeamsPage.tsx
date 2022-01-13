@@ -24,10 +24,6 @@ export const PageContainer = styled.div`
 `
 
 export const ButtonsBottomContainer = styled.div`
-    /* position: absolute;
-    bottom: 10rem;
-    left: 0;
-    right: 0; */
     margin: auto;
     text-align: center;
     margin-bottom: 10rem;
@@ -40,7 +36,6 @@ export const TeamsContainer = styled.div`
 const TeamItem = styled(Card)`
     display: flex;
     flex-direction: row;
-    
     padding: 0 0.2rem 0 1rem;
     margin-bottom: 0.3rem;
     align-items: center;
@@ -98,7 +93,6 @@ export const TeamsPage = () => {
         if (assistant){
             assistant.on('data', ({ smart_app_data }: any) => {
                 if (smart_app_data) {
-                    // console.log(smart_app_data)
                     switch (smart_app_data.type) {
                         case 'NAVIGATION_BACK':
                             pushScreen(-1)

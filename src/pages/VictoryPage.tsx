@@ -8,15 +8,6 @@ import { useStore } from '../hooks/useStore'
 import { actions } from '../store/store'
 import { StyledButton } from './TeamsPage'
 
-// const Container = styled.div`
-//     display: flex;
-//     margin-top: 2rem;
-//     height: 30vh;
-//     flex-direction: column;
-//     justify-content: center;
-//     align-items: center;
-// `
-
 const WinningTeam = styled(Card)`
     display: flex;
     padding: 1rem;
@@ -28,14 +19,6 @@ const WinningTeam = styled(Card)`
     height: 12rem;
     width: 12rem;
     border-radius: 50%;
-    /* background: rgb(255,136,32);
-    background: linear-gradient(0deg, rgba(255,136,32,1) 0%, rgba(255,192,42,1) 91%); */
-    /* margin: 1rem; */
-    /* background-color: #8080808b; */
-
-    /* background-image: url('./img/fireworks.png');
-    background-size: cover;
-    opacity: 0.5 */
 
     &:before{
         z-index: -1;

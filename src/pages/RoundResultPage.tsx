@@ -63,7 +63,6 @@ export const RoundResultPage = () => {
             }
             dispatch(actions.increaseRoundNumber())
         }
-        // dispatch(actions.setFirstLaunchOnDevice(false))
         dispatch(actions.setFirsRound(false))
         dispatch(actions.setNextTeam())
     })
@@ -93,7 +92,6 @@ export const RoundResultPage = () => {
         if (assistant){
             assistant.on('data', ({ smart_app_data }: any) => {
                 if (smart_app_data) {
-                    // console.log(smart_app_data)
                     switch (smart_app_data.type) {
                         case 'NAVIGATION_NEXT':
                             pushScreen('teamScore')

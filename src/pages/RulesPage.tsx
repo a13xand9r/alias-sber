@@ -19,7 +19,6 @@ export const RulesPage = () => {
         if (assistant){
             assistant.on('data', ({ smart_app_data }: any) => {
                 if (smart_app_data) {
-                    // console.log(smart_app_data)
                     switch (smart_app_data.type) {
                         case 'NAVIGATION_BACK':
                             pushScreen(-1)
@@ -43,11 +42,9 @@ export const RulesPage = () => {
                             </TextBox>
                             <br />
                             <StartTextBox>
-                                {/* &#128077;  */}
                                 Задача каждого игрока - объяснить как можно больше слов товарищам по команде за ограниченное время
                                 <br />
                                 <br />
-                                {/* &#128078;  */}
                                 Во время объяснения нельзя использовать одинаковые и однокоренные слова, озвучивать текст с иностранных языков
                                 <br />
                                 <br />

@@ -24,7 +24,6 @@ const UpContainer = styled(Card)`
     position: relative;
     left: 0;
     top: -2rem;
-    /* background-image: url('./img/background-city.jpeg'); */
     background-image: ${isSberBoxLike() ? `url('./img/00ff8346261277.586d57aa98e78.png')` : `url('./img/background-city.jpeg')`};
     background-size: 100%;
     background-position-y: 80%;
@@ -48,7 +47,6 @@ export const StartPage = () => {
         if (assistant){
             assistant.on('data', ({ smart_app_data }: any) => {
                 if (smart_app_data) {
-                    // console.log(smart_app_data)
                     switch (smart_app_data.type) {
                         case 'NAVIGATION_PLAY':
                             pushScreen('teams')

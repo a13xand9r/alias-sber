@@ -1,5 +1,5 @@
 import { actions } from '../store/store';
-import { RemoteKey, useRemoteListener, useTouchHandler } from '@sberdevices/plasma-temple';
+import { RemoteKey, useRemoteListener } from '@sberdevices/plasma-temple';
 import { useState, useEffect, useRef, useMemo } from 'react';
 import { useStore } from './useStore';
 import { getRandomFromArray } from '../utils/utils';
